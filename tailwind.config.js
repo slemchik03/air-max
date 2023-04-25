@@ -7,12 +7,13 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        monument: ['var(--font-regular)'],
+        monumentBold: ['var(--font-ultrabold)'],
       },
+      animation: {
+        'spin-slow': 'spin 7s linear infinite',
+      }
     },
   },
-  plugins: [],
 }
