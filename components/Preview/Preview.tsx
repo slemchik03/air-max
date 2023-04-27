@@ -65,7 +65,7 @@ const Preview: FC<Props> = ({ goodsList }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ ease: "easeInOut" }}
-                className="duration-[0.1s]"
+                className="realtive duration-[0.1s]"
                 exit={{ opacity: 0 }}
               >
                 <Image
