@@ -9,6 +9,7 @@ datasource db {
 
 model Category {
   id        String     @id @default(uuid())
+  slug      String     @unique @default("")
   title     String
   goodItems GoodItem[]
 
@@ -16,16 +17,19 @@ model Category {
 }
 
 model GoodItem {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  category    Category @relation(fields: [categoryId], references: [id])
-  title       String
-  price       Int
-  sizes       String[]
-  image       String
-  categoryId  String
-  background String @default("")
+  id         String   @id @default(uuid())
+  slug       String   @unique @default("")
+  category   Category @relation(fields: [categoryId], references: [id])
+  title      String
+  price      Int
+  sizes      String[]
+  image      String
+  advantages String @default("")
+  remains    Int @default(0)
+  categoryId String
+  background String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 
   @@unique([title])
 }

@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
-import "./globals.css";
 import Layout from "@/components/Layout/Layout";
+
+import "swiper/swiper.min.css";
+import "./globals.css";
 
 export const metadata = {
   title: "Nike Air Max",

@@ -11,27 +11,25 @@ export async function GET(request: Request) {
         return acc;
       }, {} as { [key: string]: boolean })
     : {};
-  const requestParams: { [key: string]: any } = {
-    take: Number(limit) ?? 100,
-  };
-  select && (requestParams.select = { ...selectParams});
+
   const data = await prisma.goodItem.findMany({
-    select: { category: true, ...requestParams.select },
+    select: { category: true, ...selectParams },
+    take: Number(limit) ?? 100
   });
 
   return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
-  const body = await request.json()
+  const body = await request.json();
 
   if (typeof body === "object") {
     const result = await prisma.goodItem.create({
-      data: body
-    })
+      data: body,
+    });
 
-    return NextResponse.json(result)
+    return NextResponse.json(result);
   }
 
-  return NextResponse.json({ok: false})
+  return NextResponse.json({ ok: false });
 }
