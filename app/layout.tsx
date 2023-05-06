@@ -1,8 +1,10 @@
 import localFont from "next/font/local";
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/components/General/Layout/Layout";
 
 import "swiper/swiper.min.css";
 import "./globals.css";
+import Providers from "./providers";
+import { ClerkProvider } from "@clerk/nextjs/app-beta";
 
 export const metadata = {
   title: "Nike Air Max",
@@ -30,10 +32,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${monumentRegular.variable} ${monumentUltrabold.variable}`}
-    >
+    >``
+      <ClerkProvider>
       <body>
-        <Layout>{children}</Layout>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
+      </ClerkProvider>
     </html>
   );
 }

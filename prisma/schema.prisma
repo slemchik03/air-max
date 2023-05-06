@@ -17,19 +17,36 @@ model Category {
 }
 
 model GoodItem {
-  id         String   @id @default(uuid())
-  slug       String   @unique @default("")
-  category   Category @relation(fields: [categoryId], references: [id])
+  id         String       @id @default(uuid())
+  slug       String       @unique @default("")
+  category   Category     @relation(fields: [categoryId], references: [id])
   title      String
   price      Int
   sizes      String[]
-  image      String
-  advantages String @default("")
-  remains    Int @default(0)
+  advantages String       @default("")
+  remains    Int          @default(0)
+  image      String       @default("")
   categoryId String
-  background String   @default("")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
+  background String       @default("")
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now()) @updatedAt
+  basketItem BasketItem[]
 
   @@unique([title])
+}
+
+model BasketItem {
+  id       String   @id @default(uuid())
+  item     GoodItem @relation(fields: [itemId], references: [id])
+  count    Int @default(0)
+  basket   Basket   @relation(fields: [basketId], references: [userId])
+  basketId String
+  itemId   String
+}
+
+model Basket {
+  userId      String       @id @default(uuid())
+  basketItems BasketItem[]
+
+  @@unique([userId])
 }

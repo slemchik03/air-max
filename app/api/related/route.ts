@@ -5,18 +5,11 @@ export async function GET(request: Request) {
   const params = new URL(request.url);
   const categoryId = params.searchParams.get("categoryId")!;
   const currentItemId = params.searchParams.get("currentItemId")!;
+  
   if (categoryId && currentItemId) {
     const response = (await prisma.goodItem.findMany({
       where: { categoryId, id: { not: currentItemId } },
-      select: {
-        title: true,
-        image: true,
-        id: true,
-        sizes: true,
-        price: true,
-        slug: true,
-        category: true,
-      },
+      include: {category: true}
     }))!;
     return NextResponse.json(response);
   }

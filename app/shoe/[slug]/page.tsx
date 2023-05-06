@@ -1,4 +1,4 @@
-import GoodItemDetail from "@/components/GoodItemDetail/GoodItemDetail";
+import GoodItemDetail from "@/components/ShoePage/GoodItemDetail/GoodItemDetail";
 import { GoodItem } from "@prisma/client";
 import { redirect } from "next/navigation";
 
@@ -19,7 +19,6 @@ const getShoeItem = async (slug: string) => {
 export default async function Page(pageParams: { params: { slug: string } }) {
   const shoe = await getShoeItem(pageParams.params.slug);
 
-  
   if (shoe) {
     // @ts-ignore
     return <GoodItemDetail {...shoe} />;

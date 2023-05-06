@@ -3,15 +3,20 @@ import { FC } from "react";
 interface Props {
   type: "white" | "gray" | "black";
   text: string;
-  className?: string;
-  children?: React.ReactNode;
 }
 
-const Button: FC<Props> = ({ text, type, children, className }) => {
+const Button: FC<Props & React.HTMLProps<HTMLButtonElement>> = ({
+  text,
+  type,
+  children,
+  className,
+  ...props
+}) => {
   switch (type) {
     case "black":
       return (
         <button
+          {...props}
           className={`grid grid-flow-col items-center gap-1 relative px-6 group/item item py-[6px] font-monument text-[20px] text-black bg-transparent border-[1.5px] hover:text-white duration-200 ease-in-out`}
         >
           {children}
@@ -24,6 +29,7 @@ const Button: FC<Props> = ({ text, type, children, className }) => {
     case "gray":
       return (
         <button
+          {...props}
           className={`grid grid-flow-col items-center gap-1 justify-center relative px-6 group/item item py-[6px] font-monument text-[20px] text-gray-500 bg-transparent border-[1.5px] border-[gray] hover:text-white duration-200 ease-in-out ${className}`}
         >
           {children}
@@ -36,6 +42,7 @@ const Button: FC<Props> = ({ text, type, children, className }) => {
     default:
       return (
         <button
+          {...props}
           className={`relative px-6 group/item item py-[6px] font-monument text-[20px] text-white bg-transparent border-[1.5px] hover:text-black duration-200 ease-in-out`}
         >
           {children}
