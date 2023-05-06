@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.16.4",
-    "@headlessui/react": "^1.7.13",
+    "@clerk/nextjs": "^4.17.1",
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@prisma/client": "^4.13.0",
     "@types/node": "18.15.11",
@@ -19,8 +19,8 @@
     "autoprefixer": "10.4.14",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
-    "framer-motion": "^10.12.2",
-    "jotai": "^2.0.4",
+    "framer-motion": "^10.12.8",
+    "jotai": "^2.1.0",
     "next": "13.3.0",
     "postcss": "8.4.22",
     "react": "18.2.0",
