@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Category {
@@ -22,7 +23,7 @@ model GoodItem {
   category   Category     @relation(fields: [categoryId], references: [id])
   title      String
   price      Int
-  sizes      String[]
+  sizes      Json
   advantages String       @default("")
   remains    Int          @default(0)
   image      String       @default("")
@@ -31,7 +32,7 @@ model GoodItem {
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @default(now()) @updatedAt
   basketItem BasketItem[]
-
+  @@index([categoryId])
   @@unique([title])
 }
 
@@ -42,6 +43,9 @@ model BasketItem {
   basket   Basket   @relation(fields: [basketId], references: [userId])
   basketId String
   itemId   String
+  
+  @@index([itemId])
+  @@index([basketId])
 }
 
 model Basket {

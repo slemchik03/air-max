@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export default async function Page() {
   const user = await currentUser();
   const goodItems = await getBasketItems(user?.id + "");
-  
+
   if (user) {
     return (
         <GoodList goodItems={goodItems} />

@@ -5,12 +5,6 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const limit = searchParams.get("limit");
   const select = searchParams.get("select");
-  const selectParams = select
-    ? select.split(",").reduce((acc, item) => {
-        acc[item] = true;
-        return acc;
-      }, {} as { [key: string]: boolean })
-    : {};
 
   const data = await prisma.goodItem.findMany({
 

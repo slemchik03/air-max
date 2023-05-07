@@ -23,7 +23,7 @@ const GoodList: FC = ({}) => {
       },
       suspense: true,
     });
-  console.log();
+
 
   return (
     <div className="grid grid-flow-row">

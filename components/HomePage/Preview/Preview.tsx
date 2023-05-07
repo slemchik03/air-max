@@ -6,10 +6,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import Button from "../../UI/Button/Button";
 import usePreviewMotionValue from "@/utils/hooks/usePreviewMotionValue";
 import { FC, useCallback, useState } from "react";
+import Link from "next/link";
 
 export interface PreviewGoodItem {
   title: string;
   image: string;
+  slug: string;
   background: string;
 }
 
@@ -85,9 +87,9 @@ const Preview: FC<Props> = ({ goodsList }) => {
           </AnimatePresence>
         </motion.div>
       </div>
-      <div className="relative z-[1000] grid justify-center md:justify-end items-end pb-[80px] md:pr-[200px]">
+      <Link href={"/shoe/" + goodsList[activeIdx].slug} className="relative z-[1000] grid justify-center md:justify-end items-end pb-[80px] md:pr-[200px]">
         <Button type="white" text="BUY NOW" />
-      </div>
+      </Link>
       <motion.div
         style={{
           opacity: goodsList[activeIdx].background !== activeBg ? "1" : "0",

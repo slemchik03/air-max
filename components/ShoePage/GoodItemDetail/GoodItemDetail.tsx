@@ -18,7 +18,7 @@ export default async function GoodItemDetail({
   id,
   categoryId,
 }: Props) {
-  
+  const sizesList = Array.isArray(sizes) ? sizes as string[] : [];
   return (
     <div className="grid justify-center mt-[100px] font-monument min-h-screen">
       <div className="grid  xl:grid-cols-[minmax(0,_540px)_minmax(0,_540px)] grid-rows-[500px] justify-center items-center gap-10 px-10">
@@ -41,7 +41,7 @@ export default async function GoodItemDetail({
           <p className="text-xl">{advantages}</p>
           <div className="flex gap-5 justify-center xl:justify-normal items-center">
             <span>Sizes: </span>
-            <SizesList sizes={sizes} />
+            <SizesList sizes={sizesList} />
           </div>
           <p>
             Price:

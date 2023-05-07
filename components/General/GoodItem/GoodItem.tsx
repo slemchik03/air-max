@@ -23,6 +23,8 @@ const GoodItem: FC<Props> = ({
   slug,
   className
 }) => {
+  const sizesList = Array.isArray(sizes) ? sizes as string[] : [];
+
   return (
     <Link
       href={`/shoe/${slug}`}
@@ -42,7 +44,7 @@ const GoodItem: FC<Props> = ({
         <p className="text-[#040404] text-[25px]">{title}</p>
         <p className="text-[#040404] font-monumentBold text-[20px]">{price}$</p>
         <p className="text-[#DE343D] text-[18px]">
-          {`${sizes.at(0)}-${sizes.at(-1)}`}
+          {`${sizesList.at(0)}-${sizesList.at(-1)}`}
         </p>
       </div>
     </Link>

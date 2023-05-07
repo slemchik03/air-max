@@ -13,7 +13,7 @@ const getBasketItems = async (userId: string): Promise<BasketItemList> => {
     });
     const data = (await response.json()) as Basket & {basketItems: BasketItemList};
     
-    return data.basketItems;
+    return data.basketItems || [];
   } catch (err) {
     console.log(err);
     return [];
