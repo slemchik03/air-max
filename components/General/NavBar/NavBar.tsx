@@ -9,25 +9,25 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { atom, useAtom } from "jotai";
-import { useHydrateAtoms } from 'jotai/utils'
+import { useHydrateAtoms } from "jotai/utils";
+import { mobileMenuAtom } from "../MobileNav/MobileNav";
 
 const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
 
-
-export const orderCountAtom = atom(0)
+export const orderCountAtom = atom(0);
 
 interface Props {
-  orderCountServer: number
+  orderCountServer: number;
 }
 
-const NavBar: FC<Props> = ({orderCountServer}) => {
+const NavBar: FC<Props> = ({ orderCountServer }) => {
   // @ts-ignore
-  useHydrateAtoms([[orderCountAtom, orderCountServer]])
-
-  const [count] = useAtom(orderCountAtom)
+  useHydrateAtoms([[orderCountAtom, orderCountServer]]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useAtom(mobileMenuAtom);
+  const [count] = useAtom(orderCountAtom);
   const { user, isSignedIn, isLoaded } = useUser();
-  const router = useRouter()
-  const {signOut} = useClerk()
+  const router = useRouter();
+  const { signOut } = useClerk();
 
   return (
     <>
@@ -36,7 +36,10 @@ const NavBar: FC<Props> = ({orderCountServer}) => {
           <LinkBtn type="black" text={route} key={idx} href={"#"} />
         ))}
       </div>
-      <div className="block md:hidden w-8 h-8 cursor-pointer">
+      <div
+        onClick={() => setIsMobileMenuOpen(true)}
+        className="block md:hidden w-8 h-8 cursor-pointer"
+      >
         <Bars3Icon />
       </div>
       <div className="grid gap-3 grid-flow-col justify-end items-center">
@@ -51,7 +54,10 @@ const NavBar: FC<Props> = ({orderCountServer}) => {
           />
         )}
         <Image src={searchIcon} className="cursor-pointer" alt="" />
-        <div onClick={() => router.push("/basket")} className="relative cursor-pointer">
+        <div
+          onClick={() => router.push("/basket")}
+          className="relative cursor-pointer"
+        >
           <BriefcaseIcon className="w-6 h-6" />
           <div className="absolute text-center font-bold text-[10px] right-0 bottom-0 w-4 h-4 bg-black rounded-full text-white">
             {count}

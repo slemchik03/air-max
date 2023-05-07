@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 import { FC } from "react";
 
 interface Props {
@@ -7,10 +7,11 @@ interface Props {
   text: string;
 }
 
-const LinkBtn: FC<Props> = ({ href, type, text }) => {
+const LinkBtn: FC<Props & LinkProps> = ({ href, type, text, ...props }) => {
   if (type === "orange") {
     return (
       <Link
+        {...props}
         href={href}
         className="relative group/item text-[#DE343D] text-[13px]  uppercase font-monument tracking-[0.86px] leading-[28px]"
       >
@@ -21,6 +22,7 @@ const LinkBtn: FC<Props> = ({ href, type, text }) => {
   }
   return (
     <Link
+    {...props}
       href={href}
       className="relative group/item text-black text-[13px] text-left xl:text-center uppercase font-monument tracking-[0.86px] leading-[28px]"
     >
