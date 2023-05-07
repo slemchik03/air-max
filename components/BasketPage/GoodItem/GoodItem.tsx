@@ -23,7 +23,7 @@ const GoodItem: FC<Props> = ({ item, count, id, userId }) => {
     if (result.ok) {
       setOrderCount((v) => v - 1)
       toast.success("Item was deleted!");
-      return router.push("/basket");
+      return router.refresh()
     }
   };
   return (
