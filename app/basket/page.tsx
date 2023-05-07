@@ -8,11 +8,7 @@ export default async function Page() {
   const goodItems = await getBasketItems(user?.id + "");
 
   if (user) {
-    return (
-
-        <GoodList goodItems={goodItems} />
-
-    );
+    return <GoodList goodItems={goodItems} />;
   }
   redirect("/sign-in");
 }
