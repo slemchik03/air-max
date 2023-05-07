@@ -2,6 +2,7 @@ import prisma from "@/utils/prisma";
 import NavBar from "../NavBar/NavBar";
 import { currentUser } from "@clerk/nextjs/app-beta";
 import getBasketItems from "@/utils/server/getBasketItems";
+import MobileNav from "../MobileNav/MobileNav";
 
 const Header = async () => {
   const user = await currentUser();
@@ -14,7 +15,8 @@ const Header = async () => {
 
   return (
     <div className="sticky top-0 left-0 bg-white px-[15px] md:px-[35px] xl:px-[85px] py-[30px] grid grid-cols-[0px 1fr 90px] grid-flow-col shadow-2xl z-[10001]">
-      <div className="hidden xl:block"></div>
+      <div className="hidden md:block"></div>
+      <MobileNav />
       <NavBar orderCountServer={orderCount} />
     </div>
   );

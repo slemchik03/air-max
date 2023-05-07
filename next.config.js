@@ -10,7 +10,7 @@ const nextConfig = {
     plugins: [new MiniCssExtractPlugin()]
   },
   env: {
-    "PROJECT_URL": "https://air-max.vercel.app"
+    "PROJECT_URL": "http://localhost:3000"
   },
   images: {
     domains: ["res.cloudinary.com", "images.clerk.dev"]

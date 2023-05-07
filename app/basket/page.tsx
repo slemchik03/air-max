@@ -9,7 +9,9 @@ export default async function Page() {
 
   if (user) {
     return (
+
         <GoodList goodItems={goodItems} />
+
     );
   }
   redirect("/sign-in");

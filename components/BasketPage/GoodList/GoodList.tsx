@@ -21,9 +21,9 @@ const GoodList: FC<Props> = ({ goodItems }) => {
     );
 
     return (
-      <div className="grid text-center justify-center">
+      <div className="grid text-center justify-center px-2">
         <h4 className="font-monumentBold text-4xl py-10">Your orders </h4>
-        <div className="grid gap-5 max-w-[700px] mx-auto py-5 px-2">
+        <div className="grid gap-5 max-w-[700px] mx-auto py-5">
           <AnimatePresence>
             {goodItems.map((item) => (
               <motion.div
