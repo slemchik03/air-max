@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <>
       {goodItems?.length && <Preview goodsList={goodItems} />}
-      {/* @ts-ignore */}
+      {/* @ts-ignore */} 
       <GoodSection />
       <About />
       <CompanyList />
