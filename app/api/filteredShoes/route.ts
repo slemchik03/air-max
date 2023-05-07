@@ -11,6 +11,7 @@ export async function GET(request: Request) {
     include: {category: true},
     take: Number(limit) ?? 100,
   });
+
   
   const count = await prisma.goodItem.count();
   return NextResponse.json({ data, count });

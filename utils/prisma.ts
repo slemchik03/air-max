@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client"
 let prisma: PrismaClient
 
 if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient()
+  prisma = new PrismaClient({ datasources: {  db: { url: process.env.DATABASE_URL } } })
 } else {
   // @ts-ignore
   if (!global.prisma) {
