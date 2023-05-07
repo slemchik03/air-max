@@ -31,6 +31,7 @@ const MobileNav: FC = () => {
       matchMedia.removeEventListener("change", closeMenu);
     };
   }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, translateX: "-100%" }}

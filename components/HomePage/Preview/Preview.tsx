@@ -30,14 +30,10 @@ const Preview: FC<Props> = ({ goodsList }) => {
 
   return (
     <div
-      className={`relative transition-all grid grid-rows-[5fr_1fr] bg-gradient-to-tl min-h-[91vh] duration-[1s]`}
+      className={`relative transition-all grid grid-rows-[5fr_1fr] bg-gradient-from-l bg-gradient-to-t min-h-[91vh] duration-[1s]`}
       style={{ background: activeBg }}
       onMouseMove={(e) => {
-        motionVal.set(
-          (e.clientX / e.currentTarget.offsetWidth +
-            e.clientY / e.currentTarget.offsetHeight) *
-            10
-        );
+        motionVal.set(e.clientX / 90);
       }}
     >
       <div className="absolute z-[1001] left-[30px] top-[40%] grid grid-flow-row gap-6">
@@ -53,28 +49,31 @@ const Preview: FC<Props> = ({ goodsList }) => {
           </div>
         ))}
       </div>
-      <div className="relative grid justify-center items-center z-[1000]">
-        <motion.div
-          initial={{ opacity: "0" }}
-          animate={{ opacity: "1" }}
-          transition={{ delay: 0.2, ease: "easeInOut" }}
-          className="duration-[1.5s] w-full"
-        >
-          <Image src={previewText} alt="" />
-        </motion.div>
-
+      <div className="relative grid justify-center items-center z-[1000] overflow-x-hidden">
+        <AnimatePresence>
+          {goodsList[activeIdx].background === activeBg && (
+            <motion.div
+              initial={{ opacity: "0", translateX: "-100%" }}
+              animate={{ opacity: "1", translateX: 0 }}
+              transition={{  ease: "easeInOut" }}
+              exit={{translateX: "100%", opacity: 0}}
+              className="duration-[500ms] w-full"
+            >
+              <Image src={previewText} alt="" />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <motion.div
           style={{ scale: scaleVal }}
           className="absolute max-h-[380px] max-w-[350px] md:max-h-[550px] md:max-w-[580px] xl:max-w-[780px] xl:max-h-[750px] w-full h-full left-0 right-0 mx-auto"
         >
           <AnimatePresence>
-            {activeBg === goodsList[activeIdx].background && (
+            {goodsList[activeIdx].background === activeBg && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ ease: "easeInOut" }}
-                className="realtive duration-[0.1s]"
-                exit={{ opacity: 0 }}
+                className="duration-500"
               >
                 <Image
                   src={goodsList[activeIdx].image}
@@ -87,7 +86,10 @@ const Preview: FC<Props> = ({ goodsList }) => {
           </AnimatePresence>
         </motion.div>
       </div>
-      <Link href={"/shoe/" + goodsList[activeIdx].slug} className="relative z-[1000] grid justify-center md:justify-end items-end pb-[80px] md:pr-[200px]">
+      <Link
+        href={"/shoe/" + goodsList[activeIdx].slug}
+        className="relative z-[1000] grid justify-center md:justify-end items-end pb-[80px] md:pr-[200px]"
+      >
         <Button type="white" text="BUY NOW" />
       </Link>
       <motion.div
@@ -95,7 +97,7 @@ const Preview: FC<Props> = ({ goodsList }) => {
           opacity: goodsList[activeIdx].background !== activeBg ? "1" : "0",
           background: goodsList[activeIdx].background,
         }}
-        transition={{ duration: "500ms" }}
+        transition={{ ease: "backInOut", easings: ["easeIn", "linear"] }}
         onTransitionEnd={() => setActiveBg(goodsList[activeIdx].background)}
         className={`transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-t`}
       ></motion.div>
