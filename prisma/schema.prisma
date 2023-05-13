@@ -29,11 +29,12 @@ model GoodItem {
   image      String       @default("")
   categoryId String
   background String       @default("")
+  stripePriceId String    @default("")
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @default(now()) @updatedAt
   basketItem BasketItem[]
   @@index([categoryId])
-  @@unique([title])
+  @@unique([title, stripePriceId])
 }
 
 model BasketItem {

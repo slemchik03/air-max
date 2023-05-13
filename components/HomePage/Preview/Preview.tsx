@@ -29,9 +29,9 @@ const Preview: FC<Props> = ({ goodsList }) => {
   }, []);
 
   return (
-    <div
+    <motion.div
       className={`relative transition-all grid grid-rows-[5fr_1fr] bg-gradient-from-l bg-gradient-to-t min-h-[91vh] duration-[1s]`}
-      style={{ background: activeBg }}
+      animate={{ background: activeBg }}
       onMouseMove={(e) => {
         motionVal.set(e.clientX / 90);
       }}
@@ -43,9 +43,17 @@ const Preview: FC<Props> = ({ goodsList }) => {
             onClick={() => changeActiveIdx(idx)}
             className="relative w-[10px] h-[10px] p-3 rounded-full bg-transparent border-[white] border-2 cursor-pointer"
           >
-            {idx === activeIdx && (
-              <div className="absolute left-0 right-0 top-0 bottom-0 m-auto  w-1 h-1 p-1 rounded-full bg-white"></div>
-            )}
+            <AnimatePresence>
+              {idx === activeIdx && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="absolute left-0 right-0 top-0 bottom-0 m-auto  w-1 h-1 p-1 rounded-full bg-white"
+                ></motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
@@ -55,8 +63,8 @@ const Preview: FC<Props> = ({ goodsList }) => {
             <motion.div
               initial={{ opacity: "0", translateX: "-100%" }}
               animate={{ opacity: "1", translateX: 0 }}
-              transition={{  ease: "easeInOut" }}
-              exit={{translateX: "100%", opacity: 0}}
+              transition={{ ease: "easeInOut" }}
+              exit={{ translateX: "100%", opacity: 0 }}
               className="duration-[500ms] w-full"
             >
               <Image src={previewText} alt="" />
@@ -70,16 +78,17 @@ const Preview: FC<Props> = ({ goodsList }) => {
           <AnimatePresence>
             {goodsList[activeIdx].background === activeBg && (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ ease: "easeInOut" }}
-                className="duration-500"
+                transition={{ ease: "easeInOut", duration: 0.45 }}
+                initial={{ translateX: "-2000px", filter: "blur(1.5rem)" }}
+                animate={{ translateX: "0", filter: "blur(0px)" }}
+                exit={{ filter: "blur(1.5rem)", translateX: "2000px" }}
+                className="w-full h-full"
               >
                 <Image
                   src={goodsList[activeIdx].image}
                   fill
-                  className="object-contain z-50"
-                  alt=""
+                  className={`object-contain z-50`}
+                  alt="Preview shoe"
                 />
               </motion.div>
             )}
@@ -97,11 +106,11 @@ const Preview: FC<Props> = ({ goodsList }) => {
           opacity: goodsList[activeIdx].background !== activeBg ? "1" : "0",
           background: goodsList[activeIdx].background,
         }}
-        transition={{ ease: "backInOut", easings: ["easeIn", "linear"] }}
+        transition={{ ease: "easeInOut", easings: ["easeIn", "linear"] }}
         onTransitionEnd={() => setActiveBg(goodsList[activeIdx].background)}
-        className={`transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-t`}
+        className={`transition duration-500 absolute inset-0 h-full bg-gradient-to-t`}
       ></motion.div>
-    </div>
+    </motion.div>
   );
 };
 

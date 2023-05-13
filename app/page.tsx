@@ -1,4 +1,3 @@
-
 import About from "@/components/HomePage/About/About";
 import Banner from "@/components/HomePage/Banner/Banner";
 import CompanyList from "@/components/HomePage/CompanyList/CompanyList";
@@ -22,8 +21,8 @@ export default async function Home() {
       <About />
       <CompanyList />
       <div className="py-[100px]">
-              {/* @ts-ignore */}
-      <GoodSection />
+        {/* @ts-ignore */}
+        <GoodSection />
       </div>
       <Banner />
     </>

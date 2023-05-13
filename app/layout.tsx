@@ -32,7 +32,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${monumentRegular.variable} ${monumentUltrabold.variable}`}
-    >``
+    >
       <ClerkProvider>
       <body>
         <Providers>
