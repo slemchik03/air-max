@@ -12,6 +12,7 @@
     "@clerk/nextjs": "^4.17.3",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
+    "@next/bundle-analyzer": "^13.4.2",
     "@prisma/client": "^4.14.0",
     "@stripe/stripe-js": "^1.52.1",
     "@types/node": "18.15.11",

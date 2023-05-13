@@ -8,7 +8,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FC } from "react";
 import EmptyBasket from "../EmptyBasket/EmptyBasket";
 import getStripe from "@/utils/getStripe";
-import deleteAllItemsFromBasket from "@/utils/server/deleteAllItemsFromBasket";
 
 interface Props {
   goodItems: BasketItemList;
