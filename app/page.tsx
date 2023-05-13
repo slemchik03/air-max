@@ -1,11 +1,17 @@
-import About from "@/components/HomePage/About/About";
 import Banner from "@/components/HomePage/Banner/Banner";
-import CompanyList from "@/components/HomePage/CompanyList/CompanyList";
 import GoodSection from "@/components/HomePage/GoodSection/GoodSection";
-import Preview, {
-  PreviewGoodItem,
-} from "@/components/HomePage/Preview/Preview";
+import { PreviewGoodItem } from "@/components/HomePage/Preview/Preview";
 import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
+import dynamic from "next/dynamic";
+
+const Preview = dynamic(() => import("@/components/HomePage/Preview/Preview"), {
+  ssr: false,
+});
+
+const CompanyList = dynamic(
+  () => import("@/components/HomePage/CompanyList/CompanyList")
+);
+const About = dynamic(() => import("@/components/HomePage/About/About"));
 
 export default async function Home() {
   const { data: goodItems } = await getFilteredGoodItems<PreviewGoodItem>({
@@ -15,13 +21,11 @@ export default async function Home() {
 
   return (
     <>
-      {goodItems?.length && <Preview goodsList={goodItems} />}
-      {/* @ts-ignore */} 
+      <Preview goodsList={goodItems} />
       <GoodSection />
       <About />
       <CompanyList />
       <div className="py-[100px]">
-        {/* @ts-ignore */}
         <GoodSection />
       </div>
       <Banner />
