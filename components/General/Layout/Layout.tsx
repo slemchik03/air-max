@@ -8,12 +8,12 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <>
+    <div className="flex flex-col justify-center">
       {/* @ts-ignore */}
       <Header />
-      <div className="min-h-screen">{children}</div>
+      <div className="mx-auto">{children}</div>
       <Footer />
-    </>
+    </div>
   );
 };
 

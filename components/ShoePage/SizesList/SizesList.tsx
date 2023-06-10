@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC, useState } from "react";
 
@@ -14,7 +14,7 @@ const SizesList: FC<Props> = ({ sizes }) => {
         <div
           key={idx}
           onClick={() => setActiveSize(idx)}
-          className={`border-[2px] cursor-pointer rounded-lg bg-none hover:bg-black hover:text-white duration-200 ease-in-out ${
+          className={`border-[2px] p-1 cursor-pointer rounded-lg bg-none hover:bg-black hover:text-white duration-200 ease-in-out ${
             activeSize === idx ? "bg-black text-white" : ""
           }`}
         >

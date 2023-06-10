@@ -7,11 +7,10 @@ import { BriefcaseIcon } from "@heroicons/react/24/outline";
 import LinkBtn from "../../UI/Button/LinkBtn";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { atom, useAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
 import { mobileMenuAtom } from "../MobileNav/MobileNav";
-import { User } from "@clerk/nextjs/server";
 
 const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
 
@@ -30,6 +29,10 @@ const NavBar: FC<Props> = ({ orderCountServer, userImg }) => {
   const router = useRouter();
   const { signOut } = useClerk();
 
+  const logOut = useCallback(async () => {
+    await signOut();
+    router.refresh();
+  }, []);
   return (
     <>
       <div className="hidden md:grid grid-flow-col gap-10">
@@ -46,7 +49,7 @@ const NavBar: FC<Props> = ({ orderCountServer, userImg }) => {
       <div className="grid gap-3 grid-flow-col justify-end items-center">
         {userImg && (
           <Image
-            onClick={() => signOut()}
+            onClick={logOut}
             className="cursor-pointer rounded-full"
             width={30}
             height={30}

@@ -24,7 +24,7 @@ export const filterListAtom = atom<FilterListAtom>({
   generalPriceConstraint: [0, 0],
 });
 
-const FilterList: FC = ({ }) => {
+const FilterList: FC = ({}) => {
   const [
     {
       filterItems,
@@ -72,7 +72,7 @@ const FilterList: FC = ({ }) => {
           ))}
           <div className="flex pt-4 flex-col text-center gap-1 text-gray-500 justify-center items-center px-4">
             <p className="text-gray-500">Selected price</p>
-            <span>{currentPriceConstraint.join("-")}</span>
+            <span>${currentPriceConstraint.join("-$")}</span>
             <Slider
               max={generalPriceConstraint[1]}
               min={generalPriceConstraint[0]}

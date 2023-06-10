@@ -3,11 +3,8 @@ import Image from "next/image";
 import SizesList from "../SizesList/SizesList";
 import RelatedItems from "../RelatedItems/RelatedItems";
 import OrderButton from "./OrderButton";
-import addItemToBasket from "@/utils/server/addItemToBasket";
-
 
 interface Props extends Omit<GoodItem, "updatedAt" | "createdAt"> {}
-
 
 export default async function GoodItemDetail({
   image,
@@ -18,7 +15,7 @@ export default async function GoodItemDetail({
   id,
   categoryId,
 }: Props) {
-  const sizesList = Array.isArray(sizes) ? sizes as string[] : [];
+  const sizesList = Array.isArray(sizes) ? (sizes as string[]) : [];
   return (
     <div className="grid justify-center mt-[100px] font-monument min-h-screen">
       <div className="grid  xl:grid-cols-[minmax(0,_540px)_minmax(0,_540px)] grid-rows-[500px] justify-center items-center gap-10 px-10">

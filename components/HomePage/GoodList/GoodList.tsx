@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useDeferredValue } from "react";
+import { FC } from "react";
 import GoodItem, { GoodItemCard } from "../../General/GoodItem/GoodItem";
 import { useInfiniteQuery } from "react-query";
 import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
@@ -37,10 +37,7 @@ const GoodList: FC<Props> = ({ preloadedGoodItems }) => {
         setFilterList((state) => ({
           ...state,
           generalPriceConstraint: [currData.at(-1)?.price!, currData[0]?.price],
-          currentPriceConstraint:
-            data.pages.length === 1
-              ? [currData.at(-1)?.price!, currData[0]?.price]
-              : state.currentPriceConstraint,
+          currentPriceConstraint: [currData.at(-1)?.price!, currData[0]?.price],
         }));
       },
       initialData: { pages: [preloadedGoodItems], pageParams: [4] },
@@ -51,7 +48,6 @@ const GoodList: FC<Props> = ({ preloadedGoodItems }) => {
     data?.pages.at(-1)!,
     currentPriceConstraint
   );
-
   return (
     <div className="grid grid-flow-row">
       {filteredData.length ? (

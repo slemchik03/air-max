@@ -1,24 +1,24 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     appDir: true,
-    esmExternals: 'loose'
+    esmExternals: "loose",
   },
   webpack: {
-    plugins: [new MiniCssExtractPlugin()]
+    plugins: [new MiniCssExtractPlugin()],
   },
-  "env": {
-    PROJECT_URL: "https://air-max.vercel.app"
+  env: {
+    PROJECT_URL: "http://localhost:3000/",
   },
   images: {
-    domains: ["res.cloudinary.com", "images.clerk.dev"]
+    domains: ["res.cloudinary.com", "images.clerk.dev"],
   },
-}
+};
 
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = withBundleAnalyzer(nextConfig);
