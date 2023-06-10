@@ -6,7 +6,7 @@ import { FunnelIcon } from "@heroicons/react/24/solid";
 import Button from "@/components/UI/Button/Button";
 import { atom, useAtom } from "jotai";
 import FilterListBtn from "./FilterListBtn";
-import Slider from "rc-slider";
+import FilterListSlider from "./FilterListSlider";
 
 export type FilterItem = "Price Down" | "Price Up";
 
@@ -73,24 +73,14 @@ const FilterList: FC = ({}) => {
           <div className="flex pt-4 flex-col text-center gap-1 text-gray-500 justify-center items-center px-4">
             <p className="text-gray-500">Selected price</p>
             <span>${currentPriceConstraint.join("-$")}</span>
-            <Slider
-              max={generalPriceConstraint[1]}
-              min={generalPriceConstraint[0]}
-              value={currentPriceConstraint}
-              activeDotStyle={{ border: "none" }}
-              handleStyle={{
-                border: "none",
-                background: "gray",
-                boxShadow: "none",
-              }}
-              trackStyle={{ background: "gray" }}
-              onChange={(v) => {
+            <FilterListSlider
+              initialConstrainst={generalPriceConstraint}
+              onAfterChange={(v) => {
                 setFilterItems((state) => ({
                   ...state,
-                  currentPriceConstraint: v as [number, number],
+                  currentPriceConstraint: v,
                 }));
               }}
-              range
             />
           </div>
         </Menu.Items>
