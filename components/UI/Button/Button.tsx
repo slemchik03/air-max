@@ -10,6 +10,7 @@ const Button: FC<Props & React.HTMLProps<HTMLButtonElement>> = ({
   type,
   children,
   className,
+
   ...props
 }) => {
   switch (type) {
@@ -30,7 +31,7 @@ const Button: FC<Props & React.HTMLProps<HTMLButtonElement>> = ({
       return (
         <button
           {...props}
-          className={`grid grid-flow-col items-center gap-1 justify-center relative px-6 group/item item py-[6px] font-monument text-[20px] text-gray-500 bg-transparent border-[1.5px] border-[gray] hover:text-white duration-200 ease-in-out ${className}`}
+          className={`grid grid-flow-col items-center gap-1 justify-center relative px-6 group/item item py-[6px] font-monument text-[20px] text-gray-500 bg-transparent border-[1.5px] border-[gray] hover:text-white  duration-200 ease-in-out ${className}`}
         >
           {children}
           {text}
@@ -43,12 +44,13 @@ const Button: FC<Props & React.HTMLProps<HTMLButtonElement>> = ({
       return (
         <button
           {...props}
-          className={`relative px-6 group/item item py-[6px] font-monument text-[20px] text-white bg-transparent border-[1.5px] hover:text-black duration-200 ease-in-out`}
+          className={`relative px-6 group/item item py-[6px] font-monument text-[20px] text-white bg-transparent border-[1.5px] hover:text-black 
+         duration-200 ease-in-out`}
         >
           {children}
           {text}
           <div
-            className={`absolute group-hover/item:w-full top-0 left-0 w-0 h-full bg-white duration-150 ease-in-out z-[-1]`}
+            className={`absolute group-hover/item:w-full  top-0 left-0 w-0 h-full bg-white duration-150 ease-in-out z-[-1]`}
           ></div>
         </button>
       );

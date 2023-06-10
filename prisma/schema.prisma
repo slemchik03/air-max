@@ -23,7 +23,7 @@ model GoodItem {
   category   Category     @relation(fields: [categoryId], references: [id])
   title      String
   price      Int
-  sizes      Json
+  sizes      Json 
   advantages String       @default("")
   remains    Int          @default(0)
   image      String       @default("")

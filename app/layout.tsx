@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import Layout from "@/components/General/Layout/Layout";
 
 import "swiper/swiper.min.css";
+import "rc-slider/assets/index.css";
 import "./globals.css";
 import Providers from "./providers";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
@@ -34,11 +35,11 @@ export default function RootLayout({
       className={`${monumentRegular.variable} ${monumentUltrabold.variable}`}
     >
       <ClerkProvider>
-      <body>
-        <Providers>
-          <Layout>{children}</Layout>
-        </Providers>
-      </body>
+        <body>
+          <Providers>
+            <Layout>{children}</Layout>
+          </Providers>
+        </body>
       </ClerkProvider>
     </html>
   );

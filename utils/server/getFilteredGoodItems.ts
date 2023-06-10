@@ -20,7 +20,7 @@ const getFilteredGoodItems = async <T>({
     return await response.json();
   } catch (err) {
     console.log(err);
-    return {data: [], count: 0}
+    return { data: [], count: 0 };
   }
 };
 

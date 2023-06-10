@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 export default async function Page() {
   const user = await currentUser();
 
-  if (user) {
+   if (user) {
     redirect("/");
   }
   return (
@@ -14,9 +14,10 @@ export default async function Page() {
         appearance={{
           elements: {
             rootBox: "mx-auto",
-          },
+          }
         }}
       />
     </div>
   );
 }
+

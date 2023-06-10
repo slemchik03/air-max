@@ -1,28 +1,28 @@
-import { FunnelIcon, Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
-import Button from "../../UI/Button/Button";
 import Loading from "@/components/UI/Loading/Loading";
 import dynamic from "next/dynamic";
+import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
+import { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
+import FilterList from "../FilterList/FilterList";
 
 const GoodList = dynamic(() => import("../GoodList/GoodList"), {
-  ssr: false,
   loading: () => <Loading />,
 });
 
-const GoodSection = () => {
+const GoodSection = async () => {
+  const goodList = await getFilteredGoodItems<GoodItemCard>({
+    limit: 4,
+    selectList: ["image", "title", "price", "sizes", "slug"],
+  });
+
   return (
     <div className="font-monument px-[25px] md:px-10 xl:px-[96px] pt-[91px]">
       <div className="grid gap-6 md:gap-0 justify-center text-center md:grid-flow-col md:justify-between">
         <p className="text-[#DE343D] text-[37px]">Top sellers</p>
         <div className="grid sm:grid-flow-col gap-2 sm:gap-8">
-          <Button type="gray" text="FILTERS" className="text-[15px]">
-            <FunnelIcon className="w-[26px] h-[26px]" />
-          </Button>
-          <Button type="gray" text="SORT BY" className="text-[15px]">
-            <Bars3BottomLeftIcon className="w-[26px] h-[26px]" />
-          </Button>
+          <FilterList />
         </div>
       </div>
-      <GoodList />
+      <GoodList preloadedGoodItems={goodList} />
     </div>
   );
 };

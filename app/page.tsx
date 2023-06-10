@@ -9,8 +9,9 @@ const Preview = dynamic(() => import("@/components/HomePage/Preview/Preview"), {
 });
 
 const CompanyList = dynamic(
-  () => import("@/components/HomePage/CompanyList/CompanyList")
+  () => import("@/components/HomePage/CompanyList/CompanyList"),
 );
+
 const About = dynamic(() => import("@/components/HomePage/About/About"));
 
 export default async function Home() {
@@ -22,10 +23,12 @@ export default async function Home() {
   return (
     <>
       <Preview goodsList={goodItems} />
+      {/* @ts-ignore */}
       <GoodSection />
       <About />
       <CompanyList />
       <div className="py-[100px]">
+        {/* @ts-ignore */}
         <GoodSection />
       </div>
       <Banner />
