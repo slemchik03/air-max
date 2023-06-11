@@ -1,11 +1,11 @@
 import { FC } from "react";
 
-interface Props {
+interface Props extends React.HTMLProps<HTMLButtonElement> {
   type: "white" | "gray" | "black";
   text: string;
 }
 
-const Button: FC<Props & React.HTMLProps<HTMLButtonElement>> = ({
+const Button: FC<Props> = ({
   text,
   type,
   children,

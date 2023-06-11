@@ -8,24 +8,18 @@ import LinkBtn from "../../UI/Button/LinkBtn";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { FC, useCallback } from "react";
-import { atom, useAtom } from "jotai";
-import { useHydrateAtoms } from "jotai/utils";
+import { useAtom } from "jotai";
 import { mobileMenuAtom } from "../MobileNav/MobileNav";
 
 const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
 
-export const orderCountAtom = atom(0);
-
 interface Props {
-  orderCountServer: number;
+  orderCount: number;
   userImg: string;
 }
 
-const NavBar: FC<Props> = ({ orderCountServer, userImg }) => {
-  // @ts-ignore
-  useHydrateAtoms([[orderCountAtom, orderCountServer]]);
+const NavBar: FC<Props> = ({ orderCount, userImg }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useAtom(mobileMenuAtom);
-  const [count] = useAtom(orderCountAtom);
   const router = useRouter();
   const { signOut } = useClerk();
 
@@ -33,6 +27,7 @@ const NavBar: FC<Props> = ({ orderCountServer, userImg }) => {
     await signOut();
     router.refresh();
   }, []);
+
   return (
     <>
       <div className="hidden md:grid grid-flow-col gap-10">
@@ -64,7 +59,7 @@ const NavBar: FC<Props> = ({ orderCountServer, userImg }) => {
         >
           <BriefcaseIcon className="w-6 h-6" />
           <div className="absolute text-center font-bold text-[10px] right-0 bottom-0 w-4 h-4 bg-black rounded-full text-white">
-            {count}
+            {orderCount}
           </div>
         </div>
       </div>

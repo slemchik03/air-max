@@ -21,14 +21,16 @@ const GoodItem: FC<Props> = ({
   sizes,
   category,
   slug,
-  className
+  className,
 }) => {
-  const sizesList = Array.isArray(sizes) ? sizes as string[] : [];
+  const sizesList = Array.isArray(sizes) ? (sizes as string[]) : [];
 
   return (
     <Link
       href={`/shoe/${slug}`}
-      className={`grid grid-flow-row pt-10 max-w-[400px] cursor-pointer hover:scale-90 duration-150 ease-in-out ${className || ""}`}
+      className={`grid grid-flow-row pt-10 max-w-[400px] cursor-pointer hover:scale-90 duration-150 ease-in-out ${
+        className || ""
+      }`}
     >
       <div className="grid bg-[#F9F9F9] grid-rows-[minmax(370px,_1fr)] justify-center items-center">
         <Image

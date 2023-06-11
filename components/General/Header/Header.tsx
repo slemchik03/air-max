@@ -1,8 +1,7 @@
-import prisma from "@/utils/prisma";
-import NavBar from "../NavBar/NavBar";
 import { currentUser } from "@clerk/nextjs/app-beta";
 import getBasketItems from "@/utils/server/getBasketItems";
-import MobileNav from "../MobileNav/MobileNav";
+
+import HeaderContent from "./HeaderContent";
 
 const Header = async () => {
   const user = await currentUser();
@@ -13,13 +12,8 @@ const Header = async () => {
     const basketItems = await getBasketItems(user.id);
     orderCount = basketItems.reduce((acc, v) => acc + v.count, 0);
   }
-
   return (
-    <div className="sticky top-0 left-0 bg-white px-[15px] md:px-[35px] xl:px-[85px] py-[30px] grid grid-cols-[0px 1fr 90px] grid-flow-col shadow-2xl z-[10001]">
-      <div className="hidden md:block"></div>
-      <MobileNav />
-      <NavBar userImg={user?.profileImageUrl!} orderCountServer={orderCount} />
-    </div>
+    <HeaderContent orderCount={orderCount} userImg={user?.profileImageUrl!} />
   );
 };
 

@@ -10,7 +10,7 @@ const FilterListBtn: FC<Props> = ({ active, text, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="flex gap-3 text-gray-500 hover:scale-90 items-center justify-center transition-all"
+      className="flex gap-3 text-black hover:scale-90 items-center justify-center transition-all"
     >
       {active && <ChevronDownIcon className="w-7 h-7" />}
       {text}

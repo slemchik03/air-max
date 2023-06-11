@@ -11,9 +11,10 @@ import { filterListAtom } from "../FilterList/FilterList";
 import filterItems from "@/utils/filterItems";
 
 interface Props {
-  preloadedGoodItems: Awaited<
-    ReturnType<typeof getFilteredGoodItems<GoodItemCard>>
-  >;
+  preloadedGoodItems: {
+    data: GoodItemCard[];
+    count: number;
+  };
 }
 
 const GoodList: FC<Props> = ({ preloadedGoodItems }) => {

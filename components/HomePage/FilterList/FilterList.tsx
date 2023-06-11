@@ -26,12 +26,7 @@ export const filterListAtom = atom<FilterListAtom>({
 
 const FilterList: FC = ({}) => {
   const [
-    {
-      filterItems,
-      selectedFilter,
-      currentPriceConstraint,
-      generalPriceConstraint,
-    },
+    { filterItems, selectedFilter, generalPriceConstraint },
     setFilterItems,
   ] = useAtom(filterListAtom);
 
@@ -70,19 +65,15 @@ const FilterList: FC = ({}) => {
               )}
             </Menu.Item>
           ))}
-          <div className="flex pt-4 flex-col text-center gap-1 text-gray-500 justify-center items-center px-4">
-            <p className="text-gray-500">Selected price</p>
-            <span>${currentPriceConstraint.join("-$")}</span>
-            <FilterListSlider
-              initialConstrainst={generalPriceConstraint}
-              onAfterChange={(v) => {
-                setFilterItems((state) => ({
-                  ...state,
-                  currentPriceConstraint: v,
-                }));
-              }}
-            />
-          </div>
+          <FilterListSlider
+            initialConstrainst={generalPriceConstraint}
+            onAfterChange={(v) => {
+              setFilterItems((state) => ({
+                ...state,
+                currentPriceConstraint: v,
+              }));
+            }}
+          />
         </Menu.Items>
       </Transition>
     </Menu>
