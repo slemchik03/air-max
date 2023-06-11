@@ -1,31 +1,40 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
+import Marquee from "react-fast-marquee";
+import CompanyListItems from "./CompanyListItems";
+import { useCallback, useEffect, useState } from "react";
 
 const CompanyList = () => {
+  const [isMobile, setIsMobile] = useState(true);
+  const changeStatus = useCallback(
+    (e: MediaQueryListEvent) => setIsMobile(e.matches),
+    []
+  );
+
+  useEffect(() => {
+    const matchMobileMedia = window.matchMedia("(max-width: 768px)");
+
+    setIsMobile(matchMobileMedia.matches);
+
+    matchMobileMedia.addEventListener("change", changeStatus);
+
+    return () => {
+      matchMobileMedia.removeEventListener("change", changeStatus);
+    };
+  }, []);
+
   return (
-    <div className="flex justify-center gap-[88px] mt-20">
-      {Array(4)
-        .fill(null)
-        .map((_, idx) => (
-          <motion.div
-            initial={{opacity: 0, translateX: "-20%"}}
-            whileInView={{opacity: [0, 0.5, 1], translateX: "0"}}
-            transition={{delay: idx * 0.2}}
-            key={idx}
-            className="relative flex-1 max-w-[180px] h-[60px]"
-          >
-            <Image
-              fill
-              className="object-contain"
-              src={`/images/parthners/parthner-${idx + 1}.png`}
-              alt=""
-            />
-          </motion.div>
-        ))}
-    </div>
+    <>
+      {isMobile ? (
+        <Marquee>
+          <CompanyListItems />
+        </Marquee>
+      ) : (
+        <div className="flex relative left-0 justify-center mt-10 h-[150px]">
+          <CompanyListItems />
+        </div>
+      )}
+    </>
   );
 };
-
 export default CompanyList;

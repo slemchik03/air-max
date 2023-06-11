@@ -3,7 +3,8 @@
 import { FC, useEffect, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 import NavBar from "../NavBar/NavBar";
-import MobileNav from "../MobileNav/MobileNav";
+import MobileNav, { mobileMenuAtom } from "../MobileNav/MobileNav";
+import { useAtomValue } from "jotai";
 
 interface Props {
   userImg: string;
@@ -13,16 +14,17 @@ interface Props {
 const HeaderContent: FC<Props> = (props) => {
   const { scrollY } = useScroll();
   const [isHide, setIsHide] = useState(false);
+  const isMobileMenuOpen = useAtomValue(mobileMenuAtom);
 
   useEffect(() => {
     scrollY.onChange((v) => {
-      setIsHide(v > scrollY.getPrevious());
+      setIsHide(v > scrollY.getPrevious() && v > 450 && !isMobileMenuOpen);
     });
     return () => {
       scrollY.destroy();
     };
-  }, []);
-  console.log("render");
+  }, [isMobileMenuOpen]);
+
   return (
     <motion.div
       animate={{

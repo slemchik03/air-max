@@ -19,7 +19,7 @@ interface Props {
 }
 
 const NavBar: FC<Props> = ({ orderCount, userImg }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useAtom(mobileMenuAtom);
+  const [, setIsMobileMenuOpen] = useAtom(mobileMenuAtom);
   const router = useRouter();
   const { signOut } = useClerk();
 

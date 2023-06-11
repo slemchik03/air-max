@@ -2,13 +2,13 @@
 
 import { FC } from "react";
 import GoodItem, { GoodItemCard } from "../../General/GoodItem/GoodItem";
-import { useInfiniteQuery } from "react-query";
-import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
 import Button from "../../UI/Button/Button";
 import Loading from "../../UI/Loading/Loading";
 import { useAtom } from "jotai";
-import { filterListAtom } from "../FilterList/FilterList";
+import { filterListAtom, initialState } from "../FilterList/FilterList";
 import filterItems from "@/utils/filterItems";
+import { useHydrateAtoms } from "jotai/utils";
+import useGetGoodList from "@/utils/hooks/useGetGoodList";
 
 interface Props {
   preloadedGoodItems: {
@@ -18,37 +18,30 @@ interface Props {
 }
 
 const GoodList: FC<Props> = ({ preloadedGoodItems }) => {
+  useHydrateAtoms([
+    [
+      filterListAtom,
+      {
+        ...initialState,
+        currentPriceConstraint: [
+          preloadedGoodItems.data.at(-1)?.price!,
+          preloadedGoodItems.data[0].price,
+        ],
+      },
+    ],
+  ]);
+
   const [{ selectedFilter, currentPriceConstraint }, setFilterList] =
     useAtom(filterListAtom);
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useInfiniteQuery({
-      queryKey: ["good-list"],
-      queryFn: ({ pageParam = 4 }) =>
-        getFilteredGoodItems<GoodItemCard>({
-          limit: pageParam,
-          selectList: ["image", "title", "price", "sizes", "slug"],
-        }),
-      getNextPageParam: (lastPage) => {
-        if (lastPage && lastPage.count > lastPage.data.length) {
-          return lastPage.data?.length + 4;
-        }
-      },
-      onSuccess(data) {
-        const currData = data.pages.at(-1)?.data || [{ price: 0 }];
-        setFilterList((state) => ({
-          ...state,
-          generalPriceConstraint: [currData.at(-1)?.price!, currData[0]?.price],
-          currentPriceConstraint: [currData.at(-1)?.price!, currData[0]?.price],
-        }));
-      },
-      initialData: { pages: [preloadedGoodItems], pageParams: [4] },
-    });
+    useGetGoodList(preloadedGoodItems);
 
   const filteredData = filterItems(
     selectedFilter,
     data?.pages.at(-1)!,
     currentPriceConstraint
   );
+
   return (
     <div className="grid grid-flow-row">
       {filteredData.length ? (

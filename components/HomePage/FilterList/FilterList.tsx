@@ -10,19 +10,20 @@ import FilterListSlider from "./FilterListSlider";
 
 export type FilterItem = "Price Down" | "Price Up";
 
-interface FilterListAtom {
+interface FilterListState {
   selectedFilter: FilterItem;
   filterItems: FilterItem[];
   currentPriceConstraint: [number, number];
   generalPriceConstraint: [number, number];
 }
-
-export const filterListAtom = atom<FilterListAtom>({
+export const initialState: FilterListState = {
   selectedFilter: "Price Down",
   filterItems: ["Price Down", "Price Up"],
   currentPriceConstraint: [0, 0],
   generalPriceConstraint: [0, 0],
-});
+};
+
+export const filterListAtom = atom<FilterListState>(initialState);
 
 const FilterList: FC = ({}) => {
   const [

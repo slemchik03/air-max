@@ -17,6 +17,7 @@ const FilterListSlider: FC<Props> = ({ initialConstrainst, onAfterChange }) => {
       <p className="text-black">Selected price</p>
       <span>${currValue.join("-$")}</span>
       <Slider
+        step={100}
         max={initialConstrainst[1]}
         min={initialConstrainst[0]}
         value={currValue}
