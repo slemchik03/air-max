@@ -1,8 +1,8 @@
 "use client";
 
-import Marquee from "react-fast-marquee";
 import CompanyListItems from "./CompanyListItems";
 import { useCallback, useEffect, useState } from "react";
+import CompanyListItemsMobile from "./CompanyListItemsMobile";
 
 const CompanyList = () => {
   const [isMobile, setIsMobile] = useState(true);
@@ -23,18 +23,13 @@ const CompanyList = () => {
     };
   }, []);
 
-  return (
-    <>
-      {isMobile ? (
-        <Marquee>
-          <CompanyListItems />
-        </Marquee>
-      ) : (
-        <div className="flex relative left-0 justify-center mt-10 h-[150px]">
-          <CompanyListItems />
-        </div>
-      )}
-    </>
+  return isMobile ? (
+    <div className="relative">
+      {" "}
+      <CompanyListItemsMobile />{" "}
+    </div>
+  ) : (
+    <CompanyListItems />
   );
 };
 export default CompanyList;

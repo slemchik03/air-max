@@ -8,7 +8,7 @@ export default function useGetGoodList(initialData: {
   data: GoodItemCard[];
   count: number;
 }) {
-  const [_, setFilterList] = useAtom(filterListAtom);
+  const [, setFilterList] = useAtom(filterListAtom);
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: ["good-list"],

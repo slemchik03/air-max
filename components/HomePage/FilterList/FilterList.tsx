@@ -1,10 +1,10 @@
 "use client";
 
-import { FC, Fragment, useCallback } from "react";
+import { FC, Fragment, useCallback, useMemo } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { FunnelIcon } from "@heroicons/react/24/solid";
 import Button from "@/components/UI/Button/Button";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import FilterListBtn from "./FilterListBtn";
 import FilterListSlider from "./FilterListSlider";
 
@@ -16,16 +16,14 @@ interface FilterListState {
   currentPriceConstraint: [number, number];
   generalPriceConstraint: [number, number];
 }
-export const initialState: FilterListState = {
+export const filterListAtom = atom<FilterListState>({
   selectedFilter: "Price Down",
   filterItems: ["Price Down", "Price Up"],
   currentPriceConstraint: [0, 0],
   generalPriceConstraint: [0, 0],
-};
+});
 
-export const filterListAtom = atom<FilterListState>(initialState);
-
-const FilterList: FC = ({}) => {
+const FilterList: FC = ({ }) => {
   const [
     { filterItems, selectedFilter, generalPriceConstraint },
     setFilterItems,
@@ -34,7 +32,6 @@ const FilterList: FC = ({}) => {
   const changeActiveFilter = useCallback((filter: FilterItem) => {
     setFilterItems((state) => ({ ...state, selectedFilter: filter }));
   }, []);
-
   return (
     <Menu as="div" className=" flex flex-1 relative">
       <Menu.Button as={Fragment}>
