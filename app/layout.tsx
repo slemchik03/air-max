@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import Layout from "@/components/General/Layout/Layout";
-
+import { Roboto } from "next/font/google";
 import "swiper/swiper.min.css";
 import "rc-slider/assets/index.css";
 import "./globals.css";
@@ -23,6 +23,11 @@ const monumentUltrabold = localFont({
   variable: "--font-ultrabold",
   display: "swap",
 });
+const robotoRegular = Roboto({
+  weight: ["700", "500"],
+  variable: "--font-roboto",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -32,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${monumentRegular.variable} ${monumentUltrabold.variable}`}
+      className={`${monumentRegular.variable} ${monumentUltrabold.variable} ${robotoRegular.variable}`}
     >
       <ClerkProvider>
         <body>

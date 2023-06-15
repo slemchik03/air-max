@@ -25,8 +25,7 @@ const CompanyList = () => {
 
   return isMobile ? (
     <div className="relative">
-      {" "}
-      <CompanyListItemsMobile />{" "}
+      <CompanyListItemsMobile />
     </div>
   ) : (
     <CompanyListItems />

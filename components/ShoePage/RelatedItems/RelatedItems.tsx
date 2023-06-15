@@ -17,8 +17,8 @@ export default async function RelatedItems({
   if (relatedItems && relatedItems.length) {
     return (
       <div className="grid gap-8 pt-[190px] pb-10 px-10">
-        <p className="font-monumentBold text-3xl">Related shoes:</p>
-        <div className="grid grid-flow-col justify-start gap-5">
+        <div className="grid grid-cols-1 justify-start gap-5">
+          <p className="font-monumentBold text-3xl">Related shoes:</p>
           <RelatedItemsList itemsList={relatedItems} />
         </div>
       </div>

@@ -25,7 +25,12 @@ export const filterListAtom = atom<FilterListState>({
 
 const FilterList: FC = ({ }) => {
   const [
-    { filterItems, selectedFilter, generalPriceConstraint },
+    {
+      filterItems,
+      selectedFilter,
+      currentPriceConstraint,
+      generalPriceConstraint,
+    },
     setFilterItems,
   ] = useAtom(filterListAtom);
 
@@ -65,6 +70,7 @@ const FilterList: FC = ({ }) => {
           ))}
           <FilterListSlider
             initialConstrainst={generalPriceConstraint}
+            currentConstrainst={currentPriceConstraint}
             onAfterChange={(v) => {
               setFilterItems((state) => ({
                 ...state,

@@ -3,8 +3,12 @@ import Image from "next/image";
 import SizesList from "../SizesList/SizesList";
 import RelatedItems from "../RelatedItems/RelatedItems";
 import OrderButton from "./OrderButton";
+import ColorsList from "./ColorsList";
+import parseNumber from "@/utils/parseNumber";
+import { HandThumbUpIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
-interface Props extends Omit<GoodItem, "updatedAt" | "createdAt"> {}
+interface Props extends Omit<GoodItem, "updatedAt" | "createdAt"> { }
 
 export default async function GoodItemDetail({
   image,
@@ -17,36 +21,42 @@ export default async function GoodItemDetail({
 }: Props) {
   const sizesList = Array.isArray(sizes) ? (sizes as string[]) : [];
   return (
-    <div className="grid justify-center mt-[100px] font-monument min-h-screen">
-      <div className="grid  xl:grid-cols-[minmax(0,_540px)_minmax(0,_540px)] grid-rows-[500px] justify-center items-center gap-10 px-10">
-        <div className="grid bg-[#F9F9F9] p-10 min-h-[390px] justify-center items-center">
-          <p className="font-monumentBold pb-5 text-center inline xl:hidden font-bold text-3xl">
+    <div className="grid mt-[100px] font-roboto min-h-screen">
+      <div className="grid  xl:grid-cols-[1fr_340px] grid-rows-[minmax(500px,1fr)] justify-center gap-10 px-10">
+        <div className="grid p-10 min-h-[390px] justify-center items-center">
+          <p className="uppercase tracking-tight-[0.06em] pb-5 text-center inline xl:hidden font-bold text-3xl">
             {title}
           </p>
           <Image
-            width={500}
+            width={600}
             height={350}
             src={image}
-            className="object-contain max-h-[350px]"
+            className="object-cover"
             alt="item image"
           />
         </div>
+
         <div className="flex text-center xl:text-left flex-col gap-5">
-          <p className="font-monumentBold hidden xl:inline font-bold text-3xl">
+          <p className="tracking-wider hidden xl:inline font-bold text-3xl">
             {title}
           </p>
-          <p className="text-xl">{advantages}</p>
-          <div className="flex gap-5 justify-center xl:justify-normal items-center">
-            <span>Sizes: </span>
+          <p className="tracking-wider uppercase text-[16px] font-[500] leading-[16px]">
+            {advantages}
+          </p>
+
+          <b className="leading-[42px] text-[36px] mt-5  font-[500]">
+            $ {parseNumber(price)}
+          </b>
+          <div className="flex justify-center xl:justify-normal  gap-3 transition-all">
+            <HandThumbUpIcon className="w-9 h-9 cursor-pointer hover:fill-black " />
+            <ShoppingCartIcon className="w-9 h-9 cursor-pointer hover:fill-black" />
+          </div>
+          <div className="flex flex-col gap-5 justify-center xl:justify-normal">
+            <span className="text-[15px]">Select size (UK)</span>
             <SizesList sizes={sizesList} />
           </div>
-          <p>
-            Price:
-            <b className="pl-5 font-monumentBold text-2xl font-bold">
-              {price}$
-            </b>
-          </p>
-          <div className="flex flex-col items-center xl:items-end">
+          <ColorsList />
+          <div className="flex flex-col items-center pt-10 xl:items-start">
             <OrderButton itemId={id} />
           </div>
         </div>

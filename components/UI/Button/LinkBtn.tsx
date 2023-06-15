@@ -22,7 +22,7 @@ const LinkBtn: FC<Props & LinkProps> = ({ href, type, text, ...props }) => {
   }
   return (
     <Link
-    {...props}
+      {...props}
       href={href}
       className="relative group/item text-black text-[13px] text-left xl:text-center uppercase font-monument tracking-[0.86px] leading-[28px]"
     >

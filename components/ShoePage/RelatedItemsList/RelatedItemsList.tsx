@@ -11,11 +11,11 @@ interface Props {
 const RelatedItemsList: FC<Props> = ({ itemsList }) => {
   return (
     <div className="relative overflow-x-hidden">
-    <Swiper spaceBetween={30} slidesPerView="auto">
-      {itemsList.map((item) => (
-        <GoodItem key={item.id} {...item} />
-      ))}
-    </Swiper>
+      <Swiper spaceBetween={30} slidesPerView="auto">
+        {itemsList.map((item) => (
+          <GoodItem key={item.id} {...item} className="max-w-[400px]" />
+        ))}
+      </Swiper>
     </div>
   );
 };

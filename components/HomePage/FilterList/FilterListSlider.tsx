@@ -3,11 +3,16 @@ import { FC, useCallback, useState } from "react";
 
 interface Props {
   initialConstrainst: [number, number];
+  currentConstrainst: [number, number];
   onAfterChange: (n: [number, number]) => void;
 }
 
-const FilterListSlider: FC<Props> = ({ initialConstrainst, onAfterChange }) => {
-  const [currValue, setCurrValue] = useState(initialConstrainst);
+const FilterListSlider: FC<Props> = ({
+  initialConstrainst,
+  currentConstrainst,
+  onAfterChange,
+}) => {
+  const [currValue, setCurrValue] = useState(currentConstrainst);
   const changeCurrValue = useCallback((v: [number, number]) => {
     setCurrValue(v);
   }, []);

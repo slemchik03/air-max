@@ -29,8 +29,8 @@ const NavBar: FC<Props> = ({ orderCount, userImg }) => {
   }, []);
 
   return (
-    <>
-      <div className="hidden md:grid grid-flow-col gap-10">
+    <div className="grid justify-end md:justify-between grid-flow-col">
+      <div className="hidden md:grid grid-flow-col gap-5 xl:gap-10">
         {routes.map((route, idx) => (
           <LinkBtn type="black" text={route} key={idx} href={"#"} />
         ))}
@@ -41,7 +41,7 @@ const NavBar: FC<Props> = ({ orderCount, userImg }) => {
       >
         <Bars3Icon />
       </div>
-      <div className="grid gap-3 grid-flow-col justify-end items-center">
+      <div className="hidden md:grid gap-2 xl:gap-3 grid-flow-col justify-end items-center">
         {userImg && (
           <Image
             onClick={logOut}
@@ -63,7 +63,7 @@ const NavBar: FC<Props> = ({ orderCount, userImg }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
