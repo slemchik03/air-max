@@ -1,7 +1,7 @@
 "use client";
 
 import { atom, useAtom } from "jotai";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FC, useCallback } from "react";
 
 export const searchInputAtom = atom("");
@@ -10,11 +10,18 @@ const SearchInput: FC = () => {
   const [value, setValue] = useAtom(searchInputAtom);
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const changeValue = useCallback((v: string) => {
-    setValue(v);
-    router.replace(`${pathname}?search=${v}`);
-  }, []);
+  const changeValue = useCallback(
+    (v: string) => {
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      newSearchParams.set("search", v);
+      setValue(v);
+
+      router.replace(`${pathname}?${newSearchParams.toString()}`);
+    },
+    [searchParams]
+  );
 
   return (
     <label className="flex flex-col-reverse relative focus group">

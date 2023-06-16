@@ -1,22 +1,37 @@
 import { GoodItem } from "@prisma/client";
+import makeSearchParamsUrl from "../makeSearchParamsUrl";
 
 interface Params {
   selectList: (keyof (GoodItem & { category: string }))[]; // not using
   limit: number;
   search?: string;
+  selectedFilters?:
+  | {
+    [k: string]: Set<string>;
+  }
+  | string;
 }
 
 const getFilteredGoodItems = async <T>({
   limit,
   selectList,
   search,
+  selectedFilters,
 }: Params): Promise<{ data: T[]; count: number }> => {
   try {
-    const url = new URL(`${process.env.PROJECT_URL}/api/filteredShoes`);
+    let urlParams = new URLSearchParams(
+      typeof selectedFilters === "string"
+        ? selectedFilters
+        : makeSearchParamsUrl(selectedFilters!)
+    );
 
-    url.searchParams.append("limit", String(limit));
-    url.searchParams.append("select", selectList.join(","));
-    url.searchParams.append("search", search || "");
+    urlParams.append("limit", String(limit));
+    urlParams.append("select", selectList.join(","));
+    urlParams.append("search", search || "");
+
+    const url = `${process.env.PROJECT_URL
+      }/api/filteredShoes?${urlParams.toString()}`;
+
     const response = await fetch(url, { cache: "no-cache" });
 
     return await response.json();

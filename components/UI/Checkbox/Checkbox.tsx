@@ -13,7 +13,7 @@ const Checkbox: FC<Props> = ({ text, checked, onChange }) => {
         id="default-checkbox"
         type="checkbox"
         checked={checked}
-        onChange={(e) => onChange(e.currentTarget.checked)}
+        onChange={() => onChange(!checked)}
         className="w-4 h-4 accent-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 focus:ring-2"
       />
       <label
