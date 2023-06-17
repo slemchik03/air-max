@@ -26,7 +26,7 @@ const HeaderContent: FC<Props> = (props) => {
     return () => {
       scrollY.destroy();
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, scrollY]);
 
   return (
     <motion.div
