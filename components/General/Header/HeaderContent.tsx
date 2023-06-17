@@ -8,8 +8,10 @@ import { useAtomValue } from "jotai";
 import Image from "next/image";
 import Logo from "../../../public/images/parthners/parthner-1.png";
 import Link from "next/link";
+import { NavLinkItem } from "./Header";
 
 interface Props {
+  navLinks: NavLinkItem[];
   userImg: string;
   orderCount: number;
 }
