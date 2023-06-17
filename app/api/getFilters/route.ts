@@ -26,12 +26,12 @@ export async function GET(request: Request) {
       paramName: "sortBy",
       values: ["desc", "asc"],
     },
-    // {
-    //   type: "range",
-    //   title: "Price constraints",
-    //   paramName: "priceConstraints",
-    //   values: [rangePrice.at(-1)?.price!, rangePrice[0].price],
-    // },
+    {
+      type: "range",
+      title: "Price constraints",
+      paramName: "priceConstraints",
+      values: [rangePrice.at(-1)?.price!, rangePrice[0].price],
+    },
   ];
   return NextResponse.json({ data: filters }, { status: 200 });
 }

@@ -15,6 +15,7 @@ const FilterContentItem: FC<Props> = ({
   selectedFilters,
   onChange,
 }) => {
+  const currFilter = selectedFilters[filter.paramName];
   return (
     <div className="grid gap-4 my-4">
       <p>{filter.title}</p>
@@ -22,7 +23,7 @@ const FilterContentItem: FC<Props> = ({
         {filter.values.map((v, idx) => (
           <Checkbox
             key={idx}
-            checked={!!selectedFilters[filter.paramName]?.has(v as string)}
+            checked={!!currFilter?.has(v as string)}
             text={v as string}
             onChange={(checked) =>
               onChange(checked, v as string, filter.type, filter.paramName)

@@ -10,14 +10,16 @@ export default async function Page({
 }: {
   searchParams: { [k: string]: string };
 }) {
-  const goodListRes = await getFilteredGoodItems<GoodItemCard>({
-    limit: 10,
-    selectList: [],
-    search: searchParams.search,
-    selectedFilters: makeSelectedFilters(searchParams),
-  });
+  const [goodListRes, filtersRes] = await Promise.all([
+    getFilteredGoodItems<GoodItemCard>({
+      limit: 10,
+      selectList: [],
+      search: searchParams.search,
+      selectedFilters: makeSelectedFilters(searchParams),
+    }),
+    getFilters({ search: searchParams.search }),
+  ]);
 
-  const filtersRes = await getFilters({ search: searchParams.search });
   return (
     <div className="grid gap-10 md:grid-cols-[1fr,4fr] py-[100px] px-10">
       <div className="hidden md:block">

@@ -8,6 +8,7 @@ import { useHydrateAtoms } from "jotai/utils";
 import makeSelectedFilters from "@/utils/makeSelectedFilters";
 import FilterContentItem from "./FilterContentItem";
 import useFilterCheckboxHandler from "@/utils/hooks/useFilterCheckboxHandler";
+import FilterRangeSlider from "./FilterRangeSlider";
 
 interface Props {
   initialFilters: FilterItem[];
@@ -37,14 +38,29 @@ const FilterBlock: FC<Props> = ({ initialFilters }) => {
 
   return (
     <div className="md:sticky text-xl font-roboto font-bold top-0 left-0 h-[500px] bg-[#F9F9F9] md:w-[300px] p-5 rounded-2xl shadow-md">
-      {initialFilters.map((filter, idx) => (
-        <FilterContentItem
-          key={idx}
-          selectedFilters={selectedFilters}
-          onChange={checkboxChange}
-          filter={filter}
-        />
-      ))}
+      {initialFilters.map((filter, idx) => {
+        if (filter.type !== "range") {
+          return (
+            <FilterContentItem
+              key={idx}
+              selectedFilters={selectedFilters}
+              onChange={checkboxChange}
+              filter={filter}
+            />
+          );
+        }
+        return (
+          <FilterRangeSlider
+            currentConstrainst={
+              Array.from(
+                selectedFilters[filter.paramName].values()
+              ) as unknown as [number, number]
+            }
+            initialConstrainst={filter.values as [number, number]}
+            onAfterChange={() => { }}
+          />
+        );
+      })}
     </div>
   );
 };
