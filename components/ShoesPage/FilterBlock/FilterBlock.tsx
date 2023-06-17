@@ -66,6 +66,7 @@ const FilterBlock: FC<Props> = ({ initialFilters }) => {
         const currFilter = selectedFilters[filter.paramName];
         return (
           <FilterRangeSlider
+            key={idx}
             currentConstrainst={
               currFilter
                 ? (Array.from(currFilter) as unknown as [number, number])
