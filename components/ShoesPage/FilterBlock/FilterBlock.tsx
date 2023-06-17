@@ -1,8 +1,8 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { FilterItem } from "@/utils/server/getFilters";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { atom, useAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
 import makeSelectedFilters from "@/utils/makeSelectedFilters";
@@ -25,6 +25,8 @@ export const filterBlockAtom = atom<FilterBlockState>({
 
 const FilterBlock: FC<Props> = ({ initialFilters }) => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useHydrateAtoms([
     [filterBlockAtom, { selectedFilters: makeSelectedFilters(searchParams) }],
@@ -35,6 +37,18 @@ const FilterBlock: FC<Props> = ({ initialFilters }) => {
     selectedFilters,
     setFilterBlock,
   });
+
+  const rangeChange = useCallback((v: [number, number], paramName: string) => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set(paramName, v.join(","));
+    setFilterBlock(({ selectedFilters }) => ({
+      selectedFilters: {
+        ...selectedFilters,
+        [paramName]: new Set([v[0] + "", v[1] + ""]),
+      },
+    }));
+    router.replace(`${pathname}?${newSearchParams.toString()}`);
+  }, []);
 
   return (
     <div className="md:sticky text-xl font-roboto font-bold top-0 left-0 h-[500px] bg-[#F9F9F9] md:w-[300px] p-5 rounded-2xl shadow-md">
@@ -49,15 +63,16 @@ const FilterBlock: FC<Props> = ({ initialFilters }) => {
             />
           );
         }
+        const currFilter = selectedFilters[filter.paramName];
         return (
           <FilterRangeSlider
             currentConstrainst={
-              Array.from(
-                selectedFilters[filter.paramName].values()
-              ) as unknown as [number, number]
+              currFilter
+                ? (Array.from(currFilter) as unknown as [number, number])
+                : (filter.values as [number, number])
             }
             initialConstrainst={filter.values as [number, number]}
-            onAfterChange={() => { }}
+            onAfterChange={(v) => rangeChange(v, filter.paramName)}
           />
         );
       })}

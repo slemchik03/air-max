@@ -32,15 +32,10 @@ const ContentBlock: FC<Props> = ({ goodList, initialFilters }) => {
       <div className="md:hidden mt-5">
         <FilterBlock initialFilters={initialFilters} />
       </div>
-      <Suspense>
-        <div className={`${isStale ? "opacity-25" : ""} transition-all`}>
-          <ContentGoodList
-            selectedFilters={deferredFilters}
-            query={deferredSearch}
-            initialGoodList={goodList}
-          />
-        </div>
-      </Suspense>
+
+      <div className={`${isStale ? "opacity-25" : ""} transition-all`}>
+        <ContentGoodList goodList={goodList} />
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ export async function GET(request: Request) {
   const search = searchParams.get("search");
   const sortBy = <"asc" | "desc">searchParams.get("sortBy");
   const availibleCategories = searchParams.get("availibleCategories");
+  const priceConstraints = searchParams.get("priceConstraints")?.split(",");
 
   const data = await prisma.goodItem.findMany({
     include: { category: true },
@@ -15,6 +16,12 @@ export async function GET(request: Request) {
     },
 
     where: {
+      price: priceConstraints
+        ? {
+          gte: +priceConstraints[0],
+          lte: +priceConstraints[1],
+        }
+        : undefined,
       title: {
         startsWith: search || undefined,
       },

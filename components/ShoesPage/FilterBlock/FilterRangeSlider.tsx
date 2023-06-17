@@ -1,3 +1,4 @@
+import parseNumber from "@/utils/parseNumber";
 import Slider from "rc-slider";
 import { FC, useCallback, useState } from "react";
 
@@ -18,7 +19,8 @@ const FilterRangeSlider: FC<Props> = ({
   }, []);
 
   return (
-    <div className="flex pt-4 flex-col text-center gap-1 text-black justify-center items-center px-4">
+    <div className="flex pt-4 flex-col text-left gap-1 text-black">
+      <span>Price constraint</span>
       <Slider
         step={100}
         max={initialConstrainst[1]}
@@ -37,7 +39,10 @@ const FilterRangeSlider: FC<Props> = ({
         onAfterChange={onAfterChange}
         range
       />
-      <div className="grid justify-between">{currentConstrainst}</div>
+      <div className="grid grid-flow-col w-full justify-between text-xl">
+        <p>${parseNumber(currValue[0])}</p>
+        <p>${parseNumber(currValue[1])}</p>
+      </div>
     </div>
   );
 };
