@@ -81,4 +81,6 @@ const FilterBlock: FC<Props> = memo(({ initialFilters }) => {
   );
 });
 
+FilterBlock.displayName = "Filter block"
+
 export default FilterBlock;

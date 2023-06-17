@@ -24,5 +24,5 @@ const ContentGoodList: FC<Props> = memo(({ goodList }) => {
     </div>
   );
 });
-
+ContentGoodList.displayName = "Content good list"
 export default ContentGoodList;
