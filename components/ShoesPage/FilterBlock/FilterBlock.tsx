@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback } from "react";
+import { FC, memo, useCallback } from "react";
 import { FilterItem } from "@/utils/server/getFilters";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { atom, useAtom } from "jotai";
@@ -23,7 +23,7 @@ export const filterBlockAtom = atom<FilterBlockState>({
   selectedFilters: {},
 });
 
-const FilterBlock: FC<Props> = ({ initialFilters }) => {
+const FilterBlock: FC<Props> = memo(({ initialFilters }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -79,6 +79,6 @@ const FilterBlock: FC<Props> = ({ initialFilters }) => {
       })}
     </div>
   );
-};
+});
 
 export default FilterBlock;

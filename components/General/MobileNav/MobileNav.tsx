@@ -9,17 +9,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
+import { NavLinkItem } from "../Header/Header";
 
 export const mobileMenuAtom = atom(false);
 
 const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
 
 interface Props {
+  navLinks: NavLinkItem[];
   userImg: string;
   orderCount: number;
 }
 
-const MobileNav: FC<Props> = ({ orderCount, userImg }) => {
+const MobileNav: FC<Props> = ({ orderCount, userImg, navLinks }) => {
   const { signOut } = useClerk();
   const [isOpen, setIsOpen] = useAtom(mobileMenuAtom);
   const closeMenu = useCallback(() => setIsOpen(false), []);
@@ -65,14 +67,9 @@ const MobileNav: FC<Props> = ({ orderCount, userImg }) => {
         </div>
       </div>
       <div className="grid gap-5 justify-start px-10 py-10">
-        {routes.map((route, idx) => (
-          <LinkBtn
-            onClick={closeMenu}
-            type="black"
-            text={route}
-            key={idx}
-            href={"#"}
-          />
+        <LinkBtn type="black" text="All" href="/shoes" />
+        {navLinks.map(({ href, text }) => (
+          <LinkBtn key={href} type="black" href={href} text={text} />
         ))}
       </div>
     </motion.div>

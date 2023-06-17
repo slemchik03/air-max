@@ -1,12 +1,12 @@
 import GoodItem, { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
 
-import { FC } from "react";
+import { FC, memo } from "react";
 
 interface Props {
   goodList: GoodItemCard[];
 }
 
-const ContentGoodList: FC<Props> = ({ goodList }) => {
+const ContentGoodList: FC<Props> = memo(({ goodList }) => {
   if (goodList?.length)
     return (
       <div className="grid grid-cols-[minmax(0,400px)] md:grid-cols-2 gap-5 xl:grid-cols-3">
@@ -23,6 +23,6 @@ const ContentGoodList: FC<Props> = ({ goodList }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ContentGoodList;

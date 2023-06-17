@@ -10,15 +10,17 @@ import { useRouter } from "next/navigation";
 import { FC, useCallback } from "react";
 import { useAtom } from "jotai";
 import { mobileMenuAtom } from "../MobileNav/MobileNav";
+import { NavLinkItem } from "../Header/Header";
 
 const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
 
 interface Props {
+  navLinks: NavLinkItem[];
   orderCount: number;
   userImg: string;
 }
 
-const NavBar: FC<Props> = ({ orderCount, userImg }) => {
+const NavBar: FC<Props> = ({ orderCount, userImg, navLinks }) => {
   const [, setIsMobileMenuOpen] = useAtom(mobileMenuAtom);
   const router = useRouter();
   const { signOut } = useClerk();
@@ -31,8 +33,9 @@ const NavBar: FC<Props> = ({ orderCount, userImg }) => {
   return (
     <div className="grid justify-end md:justify-between grid-flow-col">
       <div className="hidden md:grid grid-flow-col gap-5 xl:gap-10">
-        {routes.map((route, idx) => (
-          <LinkBtn type="black" text={route} key={idx} href={"#"} />
+        <LinkBtn type="black" text="All" href="/shoes" />
+        {navLinks.map(({ href, text }) => (
+          <LinkBtn key={href} type="black" href={href} text={text} />
         ))}
       </div>
       <div
