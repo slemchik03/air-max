@@ -1,6 +1,6 @@
 import parseNumber from "@/utils/parseNumber";
 import Slider from "rc-slider";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 interface Props {
   initialConstrainst: [number, number];
@@ -22,6 +22,7 @@ const FilterRangeSlider: FC<Props> = ({
     <div className="flex pt-4 flex-col text-left gap-1 text-black">
       <span>Price constraint</span>
       <Slider
+        included
         step={100}
         max={initialConstrainst[1]}
         min={initialConstrainst[0]}
