@@ -1,14 +1,20 @@
 "use client";
 
 import { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
-import { FC, Suspense, useDeferredValue } from "react";
+import {
+  FC,
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useTransition,
+} from "react";
 import SearchInput, { searchInputAtom } from "../SearchInput/SearchInput";
-import { useHydrateAtoms } from "jotai/utils";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useAtomValue } from "jotai";
 import ContentGoodList from "./ContentGoodList";
 import FilterBlock, { filterBlockAtom } from "../FilterBlock/FilterBlock";
 import { FilterItem } from "@/utils/server/getFilters";
+import debounce from "@/utils/debounce";
 
 interface Props {
   initialFilters: FilterItem[];
@@ -16,16 +22,33 @@ interface Props {
 }
 
 const ContentBlock: FC<Props> = ({ goodList, initialFilters }) => {
-  const initialSearch = useSearchParams().get("search");
-  useHydrateAtoms([[searchInputAtom, initialSearch || ""]]);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
   const search = useAtomValue(searchInputAtom);
-  const { selectedFilters } = useAtomValue(filterBlockAtom);
+  const filters = useAtomValue(filterBlockAtom);
+  const deferredFilters = useDeferredValue(filters);
 
-  const deferredFilters = useDeferredValue(selectedFilters);
-  const deferredSearch = useDeferredValue(search);
+  const changeRouteParams = useCallback(
+    debounce((v: string) => {
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      newSearchParams.set("search", v);
+      startTransition(() => {
+        router.replace(`${pathname}?${newSearchParams.toString()}`);
+      });
+    }, 500),
+    []
+  );
 
-  const isStale =
-    search !== deferredSearch || deferredFilters !== selectedFilters;
+  useEffect(() => {
+    if (searchParams.get("search") !== search) {
+      changeRouteParams(search);
+    }
+  }, [search]);
+
+  const isStale = deferredFilters !== filters || isPending;
   return (
     <div className="grid items-start">
       <SearchInput />

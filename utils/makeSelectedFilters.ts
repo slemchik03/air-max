@@ -4,15 +4,15 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 export default function makeSelectedFilters(
   params: ReadonlyURLSearchParams | { [k: string]: string }
 ) {
-  const selectedFilters: FilterBlockState["selectedFilters"] = {};
+  const selectedFilters: FilterBlockState["selectedCheckboxes"] = {};
   if (params instanceof ReadonlyURLSearchParams) {
     params.forEach((v, k) => {
-      selectedFilters[k] = v ? new Set(v.split(",")) : new Set();
+      selectedFilters[k] = v ? v.split(",") : [];
     });
   } else {
     for (const key in params) {
       if (Object.hasOwn(params, key)) {
-        selectedFilters[key] = new Set(params[key].split(","));
+        selectedFilters[key] = params[key].split(",");
       }
     }
   }

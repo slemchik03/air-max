@@ -6,7 +6,7 @@ import { FilterItem } from "@/utils/server/getFilters";
 
 interface Props {
   filter: FilterItem;
-  selectedFilters: FilterBlockState["selectedFilters"];
+  selectedFilters: FilterBlockState["selectedCheckboxes"];
   onChange: Function;
 }
 
@@ -23,7 +23,7 @@ const FilterContentItem: FC<Props> = ({
         {filter.values.map((v, idx) => (
           <Checkbox
             key={idx}
-            checked={!!currFilter?.has(v as string)}
+            checked={!!currFilter?.includes(v + "")}
             text={v as string}
             onChange={(checked) =>
               onChange(checked, v as string, filter.type, filter.paramName)
