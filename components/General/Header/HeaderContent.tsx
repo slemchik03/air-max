@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 import NavBar from "../NavBar/NavBar";
 import MobileNav, { mobileMenuAtom } from "../MobileNav/MobileNav";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import Logo from "../../../public/images/parthners/parthner-1.png";
 import Link from "next/link";
 import { NavLinkItem } from "./Header";
+import SearchModal from "../Modals/SearchModal";
 
 interface Props {
   navLinks: NavLinkItem[];
@@ -19,6 +20,7 @@ interface Props {
 const HeaderContent: FC<Props> = (props) => {
   const { scrollY } = useScroll();
   const [isHide, setIsHide] = useState(false);
+  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
   const isMobileMenuOpen = useAtomValue(mobileMenuAtom);
 
   useEffect(() => {
@@ -29,6 +31,11 @@ const HeaderContent: FC<Props> = (props) => {
       scrollY.destroy();
     };
   }, [isMobileMenuOpen, scrollY]);
+
+  const toogleSearchModal = useCallback(
+    () => setSearchModalOpen((v) => !v),
+    []
+  );
 
   return (
     <motion.div
@@ -52,8 +59,12 @@ const HeaderContent: FC<Props> = (props) => {
           alt="Logo"
         />
       </Link>
-      <MobileNav {...props} />
-      <NavBar {...props} />
+      <MobileNav toogleSearchModal={toogleSearchModal} {...props} />
+      <NavBar toogleSearchModal={toogleSearchModal} {...props} />
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setSearchModalOpen(false)}
+      />
     </motion.div>
   );
 };

@@ -39,11 +39,11 @@ const ContentBlock: FC<Props> = ({ goodList, initialFilters }) => {
         router.replace(`${pathname}?${newSearchParams.toString()}`);
       });
     }, 500),
-    []
+    [searchParams]
   );
 
   useEffect(() => {
-    if (searchParams.get("search") !== search) {
+    if ((searchParams.get("search") || "") !== search) {
       changeRouteParams(search);
     }
   }, [search]);
@@ -52,10 +52,9 @@ const ContentBlock: FC<Props> = ({ goodList, initialFilters }) => {
   return (
     <div className="grid items-start">
       <SearchInput />
-      <div className="md:hidden mt-5">
+      <div className="mt-5 md:hidden">
         <FilterBlock initialFilters={initialFilters} />
       </div>
-
       <div className={`${isStale ? "opacity-25" : ""} transition-all`}>
         <ContentGoodList goodList={goodList} />
       </div>

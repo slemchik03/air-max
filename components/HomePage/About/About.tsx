@@ -11,7 +11,7 @@ const About = () => {
     <motion.div
       initial={{ translateX: "-100%", opacity: 0 }}
       whileInView={{ translateX: "0", opacity: 1 }}
-      transition={{ ease: "easeInOut" }}
+      transition={{ ease: "easeInOut", duration: 0.45 }}
       className="relative pt-[82px] overflow-hidden font-monument text-[40px] md:text-[60px] xl:text-[100px] text-center"
     >
       <div className="block md:flex justify-center gap-2 items-center">

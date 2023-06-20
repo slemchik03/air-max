@@ -21,7 +21,7 @@ const Banner = () => {
             </div>
           ))}
       </Marquee>
-      <div className="bg-cover h-[90vh] bg-no-repeat bg-center bg-[url('/images/banner.png')]"></div>
+      <div className="bg-cover h-[90vh] bg-no-repeat bg-center bg-[url('/images/banner.webp')]"></div>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const GoodItem: FC<Props> = ({ item, count, id, userId }) => {
       return router.refresh();
     }
   };
-  console.log(count);
+
   return (
     <div className="grid gap-5 items-center grid-cols-[1fr,_3fr_0.5fr] w-full py-2 md:py-5 px-5 bg-[#eceff1] h-[150px] rounded-2xl">
       <Image
