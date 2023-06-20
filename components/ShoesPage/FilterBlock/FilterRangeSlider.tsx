@@ -18,6 +18,18 @@ const FilterRangeSlider: FC<Props> = ({
     setCurrValue(v);
   }, []);
 
+  useEffect(() => {
+    // if currValue goes outside 
+    // of initConstraint - reset it and update router params
+    if (
+      currValue[0] < initialConstrainst[0] ||
+      currValue[1] > initialConstrainst[1]
+    ) {
+      setCurrValue(initialConstrainst);
+      onAfterChange(initialConstrainst);
+    }
+  }, [initialConstrainst]);
+
   return (
     <div className="flex pt-4 flex-col text-left gap-1 text-black">
       <span>Price constraint</span>

@@ -48,6 +48,7 @@ const FilterBlock: FC<Props> = memo(({ initialFilters }) => {
     selectedCheckboxes,
     setFilterBlock,
   });
+console.log(initialFilters);
 
   return (
     <div className="md:sticky text-xl font-roboto font-bold top-0 left-0 h-[500px] bg-[#F9F9F9] md:w-[300px] p-5 rounded-2xl shadow-md">
@@ -62,13 +63,11 @@ const FilterBlock: FC<Props> = memo(({ initialFilters }) => {
             />
           );
         }
-        const initialValues = filter.values as [number, number];
-
         return (
           <FilterRangeSlider
             key={idx}
             currentConstrainst={rangeValue}
-            initialConstrainst={initialValues}
+            initialConstrainst={initialRange as [number, number]}
             onAfterChange={(v) => changeRange(v, filter.paramName)}
           />
         );

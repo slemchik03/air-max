@@ -25,7 +25,7 @@ const getFilteredGoodItems = async <T>({
       process.env.PROJECT_URL
     }/api/filteredShoes?${urlParams.toString()}`;
 
-    const response = await fetch(url, { cache: "force-cache" });
+    const response = await fetch(url, { cache: "no-store" });
 
     return await response.json();
   } catch (err) {

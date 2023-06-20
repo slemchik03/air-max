@@ -13,15 +13,19 @@ import { NavLinkItem } from "../Header/Header";
 
 export const mobileMenuAtom = atom(false);
 
-const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
-
 interface Props {
   navLinks: NavLinkItem[];
   userImg: string;
   orderCount: number;
+  toogleSearchModal: () => void;
 }
 
-const MobileNav: FC<Props> = ({ orderCount, userImg, navLinks }) => {
+const MobileNav: FC<Props> = ({
+  orderCount,
+  userImg,
+  navLinks,
+  toogleSearchModal,
+}) => {
   const { signOut } = useClerk();
   const [isOpen, setIsOpen] = useAtom(mobileMenuAtom);
   const closeMenu = useCallback(() => setIsOpen(false), []);
@@ -57,7 +61,12 @@ const MobileNav: FC<Props> = ({ orderCount, userImg, navLinks }) => {
             alt="avatar"
           />
 
-          <Image src={searchIcon} className="cursor-pointer" alt="" />
+          <Image
+            src={searchIcon}
+            onClick={toogleSearchModal}
+            className="cursor-pointer"
+            alt=""
+          />
           <Link href="/basket" className="relative cursor-pointer">
             <BriefcaseIcon className="w-6 h-6" />
             <div className="absolute text-center font-bold text-[10px] right-0 bottom-0 w-4 h-4 bg-black rounded-full text-white">
