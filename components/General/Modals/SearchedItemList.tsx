@@ -33,4 +33,6 @@ const SearchedItemList: FC<Props> = memo(({ query }) => {
   );
 });
 
+SearchedItemList.displayName = "SearchedItemList"
+
 export default SearchedItemList;
