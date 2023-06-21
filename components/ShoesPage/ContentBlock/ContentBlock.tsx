@@ -38,7 +38,7 @@ const ContentBlock: FC<Props> = ({ goodList, initialFilters }) => {
       startTransition(() => {
         router.replace(`${pathname}?${newSearchParams.toString()}`);
       });
-    }, 500),
+    }, 1000),
     [searchParams]
   );
 

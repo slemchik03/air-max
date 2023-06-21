@@ -14,20 +14,22 @@ const SearchedItemList: FC<Props> = memo(({ query }) => {
     queryFn: async () =>
       (
         await getFilteredGoodItems<GoodItemCard>({
-          limit: 30,
+          limit: 6,
           search: query,
           selectedFilters: "",
           selectList: [],
         })
       ).data,
       enabled: !!query,
+      keepPreviousData: true
   });
+  
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-4 text-center">
       {goodList?.length ? (
         goodList.map((item) => <SearchedItem key={item.id} goodItem={item} />)
       ) : (
-        <p className="">Not found!</p>
+        <p className="text-2xl text-black">There are nothing was found.<br /> Type another search</p>
       )}
     </div>
   );

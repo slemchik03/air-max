@@ -29,10 +29,9 @@ const robotoRegular = Roboto({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
-  children,
-}: {
+export default function RootLayout(props: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html
@@ -42,7 +41,10 @@ export default function RootLayout({
       <ClerkProvider>
         <body>
           <Providers>
-            <Layout>{children}</Layout>
+            <Layout>
+              {props.children}
+              {props.modal}
+            </Layout>
           </Providers>
         </body>
       </ClerkProvider>

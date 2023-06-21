@@ -5,3 +5,30 @@
 body {
   overflow-x: hidden;
 }
+
+
+
+.blur-effect {
+ @apply bg-[#ffffff80] bg-opacity-50 backdrop-blur-xl
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #88888875;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888888;
+}

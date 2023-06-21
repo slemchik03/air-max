@@ -48,7 +48,7 @@ const HeaderContent: FC<Props> = (props) => {
         duration: 0.35,
         ease: "easeInOut",
       }}
-      className="sticky grid items-center top-0 left-0 bg-white px-[25px] md:px-[35px] xl:px-[85px] py-[30px] grid-cols-[0px 1fr 90px] grid-flow-col shadow-2xl z-[10001]"
+      className="sticky grid items-center top-0 left-0 blur-effect px-[25px] md:px-[35px] xl:px-[85px] py-[30px] grid-cols-[0px 1fr 90px] grid-flow-col shadow-2xl z-[10001]"
     >
       <Link href="/">
         <Image
@@ -61,10 +61,6 @@ const HeaderContent: FC<Props> = (props) => {
       </Link>
       <MobileNav toogleSearchModal={toogleSearchModal} {...props} />
       <NavBar toogleSearchModal={toogleSearchModal} {...props} />
-      <SearchModal
-        isOpen={isSearchModalOpen}
-        onClose={() => setSearchModalOpen(false)}
-      />
     </motion.div>
   );
 };
