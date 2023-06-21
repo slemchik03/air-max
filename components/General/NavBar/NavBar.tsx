@@ -7,12 +7,11 @@ import { BriefcaseIcon } from "@heroicons/react/24/outline";
 import LinkBtn from "../../UI/Button/LinkBtn";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback } from "react";
 import { useAtom } from "jotai";
 import { mobileMenuAtom } from "../MobileNav/MobileNav";
 import { NavLinkItem } from "../Header/Header";
-
-const routes = ["All", "Footwear", "Appereal", "Basketball", "Slides"];
+import Link from "next/link";
 
 interface Props {
   navLinks: NavLinkItem[];
@@ -21,12 +20,7 @@ interface Props {
   userImg: string;
 }
 
-const NavBar: FC<Props> = ({
-  orderCount,
-  userImg,
-  navLinks,
-  toogleSearchModal,
-}) => {
+const NavBar: FC<Props> = ({ orderCount, userImg, navLinks }) => {
   const [, setIsMobileMenuOpen] = useAtom(mobileMenuAtom);
   const router = useRouter();
   const { signOut } = useClerk();
@@ -61,12 +55,9 @@ const NavBar: FC<Props> = ({
             alt="avatar"
           />
         )}
-        <Image
-          src={searchIcon}
-          onClick={toogleSearchModal}
-          className="cursor-pointer"
-          alt=""
-        />
+        <Link href="/search">
+          <Image src={searchIcon} className="cursor-pointer" alt="" />
+        </Link>
         <div
           onClick={() => router.push("/basket")}
           className="relative cursor-pointer"
