@@ -1,3 +1,3 @@
 export default function Default() {
-  return <p>xd</p>;
+  return null;
 }

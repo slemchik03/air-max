@@ -11,7 +11,6 @@ const Layout: FC<Props> = ({ children }) => {
     <div className="flex flex-col justify-center">
       {/* @ts-ignore */}
       <Header />
-
       <div className="mx-auto min-h-screen">{children}</div>
       <Footer />
     </div>

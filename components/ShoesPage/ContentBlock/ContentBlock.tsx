@@ -3,6 +3,7 @@
 import { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
 import {
   FC,
+  useCallback,
   useDeferredValue,
   useEffect,
   useTransition,
@@ -30,15 +31,18 @@ const ContentBlock: FC<Props> = ({ goodList, initialFilters }) => {
   const filters = useAtomValue(filterBlockAtom);
   const deferredFilters = useDeferredValue(filters);
 
-  useEffect(() => {
-    const changeRouteParams = debounce((v: string) => {
+  const changeRouteParams = useCallback(
+    debounce((v: string) => {
       const newSearchParams = new URLSearchParams(searchParams.toString());
       newSearchParams.set("search", v);
       startTransition(() => {
         router.replace(`${pathname}?${newSearchParams.toString()}`);
       });
-    }, 500);
+    }, 1000),
+    [searchParams]
+  );
 
+  useEffect(() => {
     if ((searchParams.get("search") || "") !== search) {
       changeRouteParams(search);
     }
