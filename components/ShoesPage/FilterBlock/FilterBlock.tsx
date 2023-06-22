@@ -37,7 +37,7 @@ const FilterBlock: FC<Props> = memo(({ initialFilters }) => {
       filterBlockAtom,
       {
         selectedCheckboxes: makeSelectedFilters(searchParams),
-        rangeValue: (initialRange as [number, number]) || [0, 0],
+        rangeValue: (initialRange as [number, number]) || [-1, 0],
       },
     ],
   ]);
@@ -48,7 +48,6 @@ const FilterBlock: FC<Props> = memo(({ initialFilters }) => {
     selectedCheckboxes,
     setFilterBlock,
   });
-console.log(initialFilters);
 
   return (
     <div className="md:sticky text-xl font-roboto font-bold top-0 left-0 h-[500px] bg-[#F9F9F9] md:w-[300px] p-5 rounded-2xl shadow-md">
