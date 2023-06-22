@@ -19,16 +19,15 @@ export default async function Page({
       search: searchParams.search,
       selectedFilters: makeParamsUrl(searchParams),
     }),
-    getFilters({ search: searchParams.search }),
+    getFilters({
+      search: searchParams.search,
+    }),
   ]);
-
-
+  
   return (
     <div className="grid gap-10 md:grid-cols-[1fr,4fr] py-[100px] px-10">
       <div className="hidden md:block">
-        <FilterBlock
-          initialFilters={filtersRes.data}
-        />
+        <FilterBlock initialFilters={filtersRes.data} />
       </div>
       <HydrateAtoms
         initialValues={[[searchInputAtom, searchParams["search"] || ""]]}

@@ -14,7 +14,6 @@ export default function useFilterHandlers({
   setFilterBlock,
 }: Params) {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const pathname = usePathname();
 
   const changeCheckbox = useCallback(
@@ -24,7 +23,6 @@ export default function useFilterHandlers({
       type: FilterItem["type"],
       paramName: string
     ) => {
-      const newSearchParams = new URLSearchParams(searchParams.toString());
       let currFilter = selectedCheckboxes[paramName];
 
       setFilterBlock((prevState) => {
@@ -48,19 +46,14 @@ export default function useFilterHandlers({
         };
       });
 
-      newSearchParams.set(paramName, currFilter.join(","));
-      return router.replace(`${pathname}?${newSearchParams.toString()}`);
     },
     [selectedCheckboxes]
   );
   const changeRange = useCallback((v: [number, number], paramName: string) => {
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.set(paramName, v.join(","));
     setFilterBlock((prevState) => ({
       ...prevState,
       rangeValue: v,
     }));
-    router.replace(`${pathname}?${newSearchParams.toString()}`);
   }, [searchParams, pathname]);
   return { changeCheckbox, changeRange };
 }

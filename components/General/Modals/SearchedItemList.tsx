@@ -3,27 +3,15 @@ import { GoodItemCard } from "../GoodItem/GoodItem";
 import SearchedItem from "./SearchedItem";
 import { useQuery } from "react-query";
 import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
+import { GoodItem } from "@prisma/client";
 
 interface Props {
-  query: string;
+goodList: GoodItem[]
 }
 
-const SearchedItemList: FC<Props> = memo(({ query }) => {
-  const { data: goodList } = useQuery({
-    queryKey: ["search-items", query],
-    queryFn: async () =>
-      (
-        await getFilteredGoodItems<GoodItemCard>({
-          limit: 6,
-          search: query,
-          selectedFilters: "",
-          selectList: [],
-        })
-      ).data,
-      enabled: !!query,
-      keepPreviousData: true
-  });
+const SearchedItemList: FC<Props> = memo(({ goodList }) => {
   
+
   return (
     <div className="grid gap-4 text-center">
       {goodList?.length ? (
