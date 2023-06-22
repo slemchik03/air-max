@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { GoodItemCard } from "../GoodItem/GoodItem";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import parseNumber from "@/utils/parseNumber";
+import { GoodItem } from "@prisma/client";
 
 interface Props {
-  goodItem: GoodItemCard;
+  goodItem: GoodItem;
 }
 
 const SearchedItem: FC<Props> = ({ goodItem }) => {

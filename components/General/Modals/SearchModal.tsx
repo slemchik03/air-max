@@ -2,29 +2,44 @@
 
 import { Dialog } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { FC, useDeferredValue, useState } from "react";
+import {
+  FC,
+  useCallback,
+  useState,
+  useTransition,
+} from "react";
 
 import SearchedItemList from "./SearchedItemList";
 import debounce from "@/utils/debounce";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-
+import { searchGoodItems } from "@/app/(actions)/actions";
+import { GoodItem } from "@prisma/client";
+let prevValue = "";
 const SearchModal: FC = () => {
+  const [goodItems, setGoodItems] = useState<GoodItem[]>([]);
   const [value, setValue] = useState("");
-  const [query, setQuery] = useState(value);
-  const deferredQuery = useDeferredValue(query);
   const router = useRouter();
   const pathname = usePathname();
-  const changeQuery = debounce((v: string) => {
-    setQuery(v);
-  }, 1000);
+  const [isPending, startTransition] = useTransition();
+  const changeQuery = useCallback(
+    debounce((v: string) => {
+      startTransition(() => {
+        searchGoodItems(v, 6).then((res) => {
+          prevValue = v;
+          setGoodItems(res);
+        });
+      });
+    }, 500),
+    []
+  );
 
   const changeValue = (v: string) => {
     setValue(v);
     changeQuery(v);
   };
   const isOpen = pathname === "/search";
-  const isStale = deferredQuery !== query || value !== query;
+  const isStale = isPending || prevValue !== value;
   return (
     <>
       {isOpen && (
@@ -51,7 +66,7 @@ const SearchModal: FC = () => {
                 />
               </div>
               <div className={`${isStale ? "opacity-30" : ""} transition-all`}>
-                <SearchedItemList query={deferredQuery} />
+                <SearchedItemList goodList={goodItems} />
               </div>
             </Dialog.Panel>
           </div>

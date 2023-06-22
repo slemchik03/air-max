@@ -9,6 +9,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     esmExternals: "loose",
+    serverActions: true,
   },
   webpack: {
     plugins: [new MiniCssExtractPlugin()],

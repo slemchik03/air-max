@@ -15,7 +15,6 @@ import Link from "next/link";
 
 interface Props {
   navLinks: NavLinkItem[];
-  toogleSearchModal: () => void;
   orderCount: number;
   userImg: string;
 }

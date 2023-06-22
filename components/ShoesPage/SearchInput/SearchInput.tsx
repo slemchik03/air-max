@@ -1,17 +1,23 @@
 "use client";
 
-import { atom, useAtom } from "jotai";
-import { FC, useCallback } from "react";
+import debounce from "@/utils/debounce";
+import { atom, useAtom, useSetAtom } from "jotai";
+import { FC, useCallback, useState, useTransition } from "react";
 
 export const searchInputAtom = atom("");
 
 const SearchInput: FC = () => {
-  const [value, setValue] = useAtom(searchInputAtom);
+  const [value, setValue] = useState("");
+  const setSearchInputValue = useSetAtom(searchInputAtom);
 
-  const changeValue = useCallback((v: string) => {
+  const changeSearchInputValue = useCallback(
+    debounce((v: string) => setSearchInputValue(v), 500),
+    []
+  );
+  const changeValue = (v: string) => {
     setValue(v);
-  }, []);
-
+    changeSearchInputValue(v);
+  };
   return (
     <label className="flex flex-col-reverse relative focus group">
       <input

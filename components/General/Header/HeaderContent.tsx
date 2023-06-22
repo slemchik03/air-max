@@ -9,7 +9,6 @@ import Image from "next/image";
 import Logo from "../../../public/images/parthners/parthner-1.png";
 import Link from "next/link";
 import { NavLinkItem } from "./Header";
-import SearchModal from "../Modals/SearchModal";
 
 interface Props {
   navLinks: NavLinkItem[];
@@ -24,11 +23,14 @@ const HeaderContent: FC<Props> = (props) => {
   const isMobileMenuOpen = useAtomValue(mobileMenuAtom);
 
   useEffect(() => {
+    if (scrollY.get() < 450) {
+      setIsHide(false);
+    }
     scrollY.onChange((v) => {
       setIsHide(v > scrollY.getPrevious() && v > 450 && !isMobileMenuOpen);
     });
     return () => {
-      scrollY.destroy();
+      scrollY.clearListeners();
     };
   }, [isMobileMenuOpen, scrollY]);
 
@@ -59,8 +61,8 @@ const HeaderContent: FC<Props> = (props) => {
           alt="Logo"
         />
       </Link>
-      <MobileNav toogleSearchModal={toogleSearchModal} {...props} />
-      <NavBar toogleSearchModal={toogleSearchModal} {...props} />
+      <MobileNav  {...props} />
+      <NavBar  {...props} />
     </motion.div>
   );
 };
