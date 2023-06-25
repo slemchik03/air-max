@@ -1,14 +1,15 @@
-const deleteItemFromBasket = async (
-  basketItemId: string,
-  userId: string
-): Promise<{ ok: boolean }> => {
+const deleteItemFromBasket = async (data: {
+  basketItemId: string;
+  count: number;
+  userId: string;
+}): Promise<{ ok: boolean }> => {
   try {
     const url = new URL(`${process.env.PROJECT_URL}/api/deleteItemFromBasket`);
 
     const response = await fetch(url, {
       cache: "no-cache",
       method: "POST",
-      body: JSON.stringify({ basketItemId, userId }),
+      body: JSON.stringify(data),
     });
 
     return { ok: true };

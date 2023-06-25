@@ -15,6 +15,8 @@ const GoodSection = async () => {
     selectList: ["image", "title", "price", "sizes", "slug"],
   });
 
+  console.log(goodList);
+
   return (
     <HydrateAtoms
       initialValues={[
@@ -24,8 +26,8 @@ const GoodSection = async () => {
             selectedFilter: "Price Down",
             filterItems: ["Price Down", "Price Up"],
             currentPriceConstraint: [
-              goodList.data.at(-1)?.price,
-              goodList.data[0].price,
+              goodList.data.at(-1)?.price || 0,
+              goodList.data[0].price || 0,
             ],
           },
         ],

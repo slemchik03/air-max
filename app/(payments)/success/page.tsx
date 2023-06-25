@@ -1,4 +1,4 @@
-import Button from "@/components/UI/Button/Button";
+import Button from "@/components/General/Buttons/Button";
 import deleteAllItemsFromBasket from "@/utils/server/delete/deleteAllItemsFromBasket";
 import getCheckoutData from "@/utils/server/get/getCheckoutData";
 import { currentUser } from "@clerk/nextjs";

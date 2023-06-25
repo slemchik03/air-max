@@ -4,25 +4,10 @@ import { BasketItem, GoodItem } from "@prisma/client";
 import Image from "next/image";
 import { FC } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import deleteItemFromBasket from "@/utils/server/delete/deleteItemFromBasket";
 
-type Props = BasketItem & { item: GoodItem; userId: string };
+type Props = BasketItem & { item: GoodItem };
 
-const GoodItem: FC<Props> = ({ item, count, id, userId }) => {
-  const router = useRouter();
-  const deleteItem = async () => {
-    const toastId = toast.loading("Deleting item...");
-    const result = await deleteItemFromBasket(id, userId);
-    toast.dismiss(toastId);
-
-    if (result.ok) {
-      toast.success("Item was deleted!");
-      return router.refresh();
-    }
-  };
-
+const BasketItem: FC<Props> = ({ item, count, id }) => {
   return (
     <div className="grid gap-5 items-center grid-cols-[1fr,_3fr_0.5fr] w-full py-2 md:py-5 px-5 bg-[#eceff1] h-[150px] rounded-2xl">
       <Image
@@ -41,7 +26,6 @@ const GoodItem: FC<Props> = ({ item, count, id, userId }) => {
       </div>
       <div>
         <button
-          onClick={deleteItem}
           className={`grid justify-center hover:bg-slate-200 rounded-lg duration-150 ease-in-out border-none bg-transparent`}
         >
           <XMarkIcon className="h-[25px] w-[25px] md:w-[40px] md:h-[40px]" />
@@ -51,4 +35,4 @@ const GoodItem: FC<Props> = ({ item, count, id, userId }) => {
   );
 };
 
-export default GoodItem;
+export default BasketItem;

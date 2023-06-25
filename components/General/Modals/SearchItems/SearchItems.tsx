@@ -1,36 +1,21 @@
 "use client";
 
-import { searchGoodItems } from "@/app/(actions)/actions";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import debounce from "@/utils/debounce";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { GoodItem } from "@prisma/client";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import SearchItemsList from "./SearchItemsList";
 import { useSetAtom } from "jotai";
 import { isHideHeaderAtom } from "../../Header/HeaderContent";
-
-let prevValue = "";
+import useGetSearchedItems from "@/utils/hooks/useGetSearchedItems";
 
 const SearchItems = () => {
-  const [goodItems, setGoodItems] = useState<GoodItem[]>([]);
   const setIsHideHeader = useSetAtom(isHideHeaderAtom);
   const [value, setValue] = useState("");
+  const { isPending, goodItems, changeQuery } = useGetSearchedItems(value);
+
   const router = useRouter();
   const pathname = usePathname();
-  const [isPending, startTransition] = useTransition();
-  const changeQuery = useCallback(
-    debounce((v: string) => {
-      startTransition(() => {
-        searchGoodItems(v, 6).then((res) => {
-          prevValue = v;
-          setGoodItems(res);
-        });
-      });
-    }, 500),
-    []
-  );
 
   const changeValue = (v: string) => {
     setValue(v);
@@ -40,7 +25,6 @@ const SearchItems = () => {
     if (!v) router.back();
   };
   const isOpen = pathname === "/search";
-  const isStale = isPending || prevValue !== value;
   useEffect(() => {
     if (isOpen) {
       setIsHideHeader(true);
@@ -59,7 +43,7 @@ const SearchItems = () => {
               className="text-[#23272F] bg-transparent w-full border-none outline-none"
             />
           </div>
-          <div className={`${isStale ? "opacity-30" : ""} transition-all`}>
+          <div className={`${isPending ? "opacity-30" : ""} transition-all`}>
             <SearchItemsList goodList={goodItems} />
           </div>
         </DialogHeader>

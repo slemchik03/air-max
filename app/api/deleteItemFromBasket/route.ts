@@ -2,16 +2,15 @@ import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const { basketItemId, userId } = await request.json();
-
-  if (basketItemId && userId) {
-    const basketItem = await prisma.basketItem.findFirst({
-      where: { id: basketItemId },
-    });
-    if (basketItem && basketItem.count > 1) {
+  const { basketItemId, userId, count } = await request.json();
+  const basketItem = await prisma.basketItem.findFirst({
+    where: { id: basketItemId, basket: { userId } },
+  });
+  if (basketItem) {
+    if (basketItem.count - count >= 1) {
       await prisma.basketItem.update({
         where: { id: basketItemId },
-        data: { count: basketItem.count - 1 },
+        data: { count: basketItem.count - count },
       });
     } else {
       await prisma.basketItem.delete({

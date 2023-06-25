@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback } from "react";
 import { FunnelIcon } from "@heroicons/react/24/solid";
 import { atom, useAtom } from "jotai";
 import FilterListBtn from "./FilterListBtn";
@@ -27,7 +27,7 @@ export const filterListAtom = atom<FilterListState>({
   generalPriceConstraint: [0, 0],
 });
 
-const FilterList: FC = ({}) => {
+const FilterList: FC = ({ }) => {
   const [
     {
       filterItems,
@@ -43,12 +43,11 @@ const FilterList: FC = ({}) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button  variant="outline">
+        <Button variant="outline">
           <div className="flex  gap-3 items-center">
-          <FunnelIcon className="w-[25px] h-[26px]" />
-          <p>Filters</p>
+            <FunnelIcon className="w-[25px] h-[26px]" />
+            <p>Filters</p>
           </div>
-         
         </Button>
       </PopoverTrigger>
       <PopoverContent className="py-5 bg-gray-200 border-1 border-gray-500 flex flex-col">
