@@ -1,5 +1,5 @@
-import SearchModal from "@/components/General/Modals/SearchModal";
+import SearchItems from "@/components/General/Modals/SearchItems/SearchItems";
 
 export default function Page() {
-    return <SearchModal />;
+    return <SearchItems />;
 }

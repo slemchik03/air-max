@@ -30,6 +30,7 @@ const Button: FC<Props> = ({
     case "gray":
       return (
         <button
+          type="button"
           {...props}
           className={`grid grid-flow-col items-center gap-1 justify-center relative px-6 group/item item py-[6px] font-monument text-[20px] text-gray-500 bg-transparent border-[1.5px] border-[gray] hover:text-white  duration-200 ease-in-out ${className}`}
         >

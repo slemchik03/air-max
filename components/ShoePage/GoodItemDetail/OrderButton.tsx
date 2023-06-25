@@ -1,11 +1,11 @@
 "use client";
 
 import { FC } from "react";
-import Button from "../../UI/Button/Button";
 import { toast } from "react-hot-toast";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import addItemToBasket from "@/utils/server/addItemToBasket";
+import addItemToBasket from "@/utils/server/add/addItemToBasket";
+import Button from "@/components/General/Buttons/Button";
 
 interface Props {
   itemId: string;

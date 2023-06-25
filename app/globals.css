@@ -6,10 +6,8 @@ body {
   overflow-x: hidden;
 }
 
-
-
 .blur-effect {
- @apply bg-[#ffffff80] bg-opacity-50 backdrop-blur-xl
+  @apply bg-[#ffffff80] bg-opacity-50 backdrop-blur-xl;
 }
 
 /* width */
@@ -32,3 +30,4 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #888888;
 }
+

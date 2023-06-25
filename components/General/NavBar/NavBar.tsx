@@ -4,7 +4,6 @@ import searchIcon from "../../../public/icons/search-icon.svg";
 import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { BriefcaseIcon } from "@heroicons/react/24/outline";
-import LinkBtn from "../../UI/Button/LinkBtn";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { FC, useCallback } from "react";
@@ -12,6 +11,7 @@ import { useAtom } from "jotai";
 import { mobileMenuAtom } from "../MobileNav/MobileNav";
 import { NavLinkItem } from "../Header/Header";
 import Link from "next/link";
+import LinkBtn from "../Buttons/LinkBtn";
 
 interface Props {
   navLinks: NavLinkItem[];

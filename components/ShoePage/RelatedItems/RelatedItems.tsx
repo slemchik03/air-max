@@ -1,4 +1,4 @@
-import getRelatedItems from "@/utils/server/getRelatedItems";
+import getRelatedItems from "@/utils/server/get/getRelatedItems";
 import RelatedItemsList from "../RelatedItemsList/RelatedItemsList";
 
 interface Props {

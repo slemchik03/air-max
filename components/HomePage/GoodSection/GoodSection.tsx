@@ -1,9 +1,9 @@
-import Loading from "@/components/UI/Loading/Loading";
+import Loading from "@/components/General/Loading/Loading";
 import dynamic from "next/dynamic";
-import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
 import { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
 import FilterList, { filterListAtom } from "../FilterList/FilterList";
 import HydrateAtoms from "../../General/HydrateAtoms";
+import getFilteredGoodItems from "@/utils/server/get/getFilteredGoodItems";
 
 const GoodList = dynamic(() => import("../GoodList/GoodList"), {
   loading: () => <Loading />,

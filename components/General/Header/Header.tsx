@@ -1,8 +1,8 @@
 import { currentUser } from "@clerk/nextjs/app-beta";
-import getBasketItems from "@/utils/server/getBasketItems";
 
 import HeaderContent from "./HeaderContent";
 import prisma from "@/utils/prisma";
+import getBasketItems from "@/utils/server/get/getBasketItems";
 
 export interface NavLinkItem {
   href: string;

@@ -1,4 +1,4 @@
-import Button from "@/components/UI/Button/Button";
+import Button from "@/components/General/Buttons/Button";
 import { motion } from "framer-motion";
 import Link from "next/link";
 

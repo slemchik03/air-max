@@ -1,10 +1,10 @@
 "use client";
 
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 import NavBar from "../NavBar/NavBar";
 import MobileNav, { mobileMenuAtom } from "../MobileNav/MobileNav";
-import { useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 import Image from "next/image";
 import Logo from "../../../public/images/parthners/parthner-1.png";
 import Link from "next/link";
@@ -15,11 +15,10 @@ interface Props {
   userImg: string;
   orderCount: number;
 }
-
+export const isHideHeaderAtom = atom(false);
 const HeaderContent: FC<Props> = (props) => {
   const { scrollY } = useScroll();
-  const [isHide, setIsHide] = useState(false);
-  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
+  const [isHide, setIsHide] = useAtom(isHideHeaderAtom);
   const isMobileMenuOpen = useAtomValue(mobileMenuAtom);
 
   useEffect(() => {
@@ -33,11 +32,6 @@ const HeaderContent: FC<Props> = (props) => {
       scrollY.clearListeners();
     };
   }, [isMobileMenuOpen]);
-
-  const toogleSearchModal = useCallback(
-    () => setSearchModalOpen((v) => !v),
-    []
-  );
 
   return (
     <motion.div
@@ -61,8 +55,8 @@ const HeaderContent: FC<Props> = (props) => {
           alt="Logo"
         />
       </Link>
-      <MobileNav  {...props} />
-      <NavBar  {...props} />
+      <MobileNav {...props} />
+      <NavBar {...props} />
     </motion.div>
   );
 };

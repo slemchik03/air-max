@@ -2,11 +2,11 @@
 
 import { BasketItem, GoodItem } from "@prisma/client";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import deleteItemFromBasket from "@/utils/server/deleteItemFromBasket";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import deleteItemFromBasket from "@/utils/server/delete/deleteItemFromBasket";
 
 type Props = BasketItem & { item: GoodItem; userId: string };
 

@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import Checkbox from "@/components/UI/Checkbox/Checkbox";
+import Checkbox from "@/components/General/Checkbox/Checkbox";
 import { FilterBlockState } from "./FilterBlock";
-import { FilterItem } from "@/utils/server/getFilters";
+import { FilterItem } from "@/utils/server/get/getFilters";
+
 
 interface Props {
   filter: FilterItem;

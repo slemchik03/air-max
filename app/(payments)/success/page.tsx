@@ -1,7 +1,7 @@
 import Button from "@/components/UI/Button/Button";
-import deleteAllItemsFromBasket from "@/utils/server/deleteAllItemsFromBasket";
-import getCheckoutData from "@/utils/server/getCheckoutData";
-import { currentUser } from "@clerk/nextjs/server";
+import deleteAllItemsFromBasket from "@/utils/server/delete/deleteAllItemsFromBasket";
+import getCheckoutData from "@/utils/server/get/getCheckoutData";
+import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

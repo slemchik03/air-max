@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, memo, useMemo } from "react";
-import { FilterItem } from "@/utils/server/getFilters";
+import { FilterItem } from "@/utils/server/get/getFilters"; 
 import { useSearchParams } from "next/navigation";
 import { atom, useAtom } from "jotai";
 import FilterContentItem from "./FilterContentItem";

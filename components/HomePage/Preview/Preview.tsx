@@ -3,10 +3,10 @@
 import Image from "next/image";
 import previewText from "../../../public/images/preview-text.png";
 import { AnimatePresence, motion } from "framer-motion";
-import Button from "../../UI/Button/Button";
 import usePreviewMotionValue from "@/utils/hooks/usePreviewMotionValue";
 import { FC, useCallback, useState } from "react";
 import Link from "next/link";
+import Button from "@/components/General/Buttons/Button";
 
 export interface PreviewGoodItem {
   title: string;

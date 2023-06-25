@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from "react-query";
-import getFilteredGoodItems from "../server/getFilteredGoodItems";
 import { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
 import { filterListAtom } from "@/components/HomePage/FilterList/FilterList";
 import { useAtom } from "jotai";
+import getFilteredGoodItems from "../server/get/getFilteredGoodItems";
 
 export default function useGetGoodList(initialData: {
   data: GoodItemCard[];

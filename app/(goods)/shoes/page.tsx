@@ -4,8 +4,8 @@ import ContentBlock from "@/components/ShoesPage/ContentBlock/ContentBlock";
 import FilterBlock from "@/components/ShoesPage/FilterBlock/FilterBlock";
 import { searchInputAtom } from "@/components/ShoesPage/SearchInput/SearchInput";
 import makeParamsUrl from "@/utils/makeParamsUrl";
-import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
-import getFilters from "@/utils/server/getFilters";
+import getFilteredGoodItems from "@/utils/server/get/getFilteredGoodItems";
+import getFilters from "@/utils/server/get/getFilters";
 
 export default async function Page({
   searchParams,
@@ -21,9 +21,10 @@ export default async function Page({
     }),
     getFilters({
       search: searchParams.search,
+      priceConstaraints: searchParams.priceConstraints?.split(","),
     }),
   ]);
-  
+
   return (
     <div className="grid gap-10 md:grid-cols-[1fr,4fr] py-[100px] px-10">
       <div className="hidden md:block">

@@ -1,7 +1,7 @@
 import Banner from "@/components/HomePage/Banner/Banner";
 import GoodSection from "@/components/HomePage/GoodSection/GoodSection";
 import { PreviewGoodItem } from "@/components/HomePage/Preview/Preview";
-import getFilteredGoodItems from "@/utils/server/getFilteredGoodItems";
+import getFilteredGoodItems from "@/utils/server/get/getFilteredGoodItems";
 import dynamic from "next/dynamic";
 
 const Preview = dynamic(() => import("@/components/HomePage/Preview/Preview"), {

@@ -1,7 +1,6 @@
 "use client";
 
 import searchIcon from "../../../public/icons/search-icon.svg";
-import LinkBtn from "@/components/UI/Button/LinkBtn";
 import { useClerk } from "@clerk/nextjs";
 import { atom, useAtom } from "jotai";
 import { BriefcaseIcon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -10,6 +9,7 @@ import Link from "next/link";
 import { FC, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { NavLinkItem } from "../Header/Header";
+import LinkBtn from "../Buttons/LinkBtn";
 
 export const mobileMenuAtom = atom(false);
 

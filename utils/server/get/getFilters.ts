@@ -7,14 +7,19 @@ export interface FilterItem {
 
 interface Params {
   search: string;
+  priceConstaraints?: [number, number] | string[];
 }
 
-const getFilters = async ({ search }: Params) => {
+const getFilters = async ({ search, priceConstaraints }: Params) => {
   try {
     const url = new URL(`${process.env.PROJECT_URL}/api/getFilters`);
 
     url.searchParams.append("search", search || "");
-    const response = await fetch(url);
+    url.searchParams.append(
+      "priceConstraints",
+      priceConstaraints?.join(",") || ""
+    );
+    const response = await fetch(url, { cache: "no-store" });
 
     return (await response.json()) as { data: FilterItem[] };
   } catch (err) {

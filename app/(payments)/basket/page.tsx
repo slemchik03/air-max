@@ -1,6 +1,6 @@
 import GoodList from "@/components/BasketPage/GoodList/GoodList";
-import getBasketItems from "@/utils/server/getBasketItems";
-import { currentUser } from "@clerk/nextjs/app-beta";
+import getBasketItems from "@/utils/server/get/getBasketItems";
+import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

@@ -1,4 +1,4 @@
-import LinkBtn from "../../UI/Button/LinkBtn";
+import LinkBtn from "../Buttons/LinkBtn";
 
 const routes = [
   { title: "Features", links: ["About", "Careers", "Mobile"] },

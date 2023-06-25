@@ -1,5 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FilterItem } from "../server/getFilters";
+import { FilterItem } from "../server/get/getFilters";
 import { SetStateAction } from "jotai";
 import { Dispatch, useCallback } from "react";
 import { FilterBlockState } from "@/components/ShoesPage/FilterBlock/FilterBlock";

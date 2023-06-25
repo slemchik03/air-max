@@ -2,14 +2,14 @@
 
 import { FC } from "react";
 import GoodItem, { GoodItemCard } from "../../General/GoodItem/GoodItem";
-import Button from "../../UI/Button/Button";
-import Loading from "../../UI/Loading/Loading";
+import Loading from "../../General/Loading/Loading";
 import { useAtom } from "jotai";
 import { filterListAtom } from "../FilterList/FilterList";
 import filterItems from "@/utils/filterItems";
 
 import useGetGoodList from "@/utils/hooks/useGetGoodList";
 import { AnimatePresence, motion } from "framer-motion";
+import Button from "@/components/General/Buttons/Button";
 
 interface Props {
   preloadedGoodItems: {

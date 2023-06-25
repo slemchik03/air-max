@@ -18,9 +18,11 @@ export async function searchFilteredGoodItems(params: {
 }) {
   const limit = params["limit"];
   const search = params["search"] as string;
-  const sortBy = <"asc" | "desc">params["sortBy"];
+  const sortBy = Array.isArray(params["sortBy"])
+    ? <"asc"|"desc">params["sortBy"][0]
+    : <"asc"|"desc">params["sortBy"];
   const availibleCategories = params["availibleCategories"] as string[];
-  const priceConstraints = (params["priceConstraints"] as string[]);
+  const priceConstraints = params["priceConstraints"] as string[];
 
   const data = await prisma.goodItem.findMany({
     include: { category: true },
@@ -49,5 +51,5 @@ export async function searchFilteredGoodItems(params: {
     take: 10,
   });
   const count = await prisma.goodItem.count();
-  return data || []
+  return data || [];
 }
