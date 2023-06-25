@@ -7,7 +7,7 @@ import EmptyBasket from "../EmptyBasket/EmptyBasket";
 import Button from "@/components/General/Buttons/Button";
 import DeleteItemFromBasket from "@/components/General/Modals/DeleteItemFromBasket/DeleteItemFromBasket";
 import getStripe from "@/utils/getStripe";
-import { BasketItem, GoodItem } from "@prisma/client";
+import type { BasketItem, GoodItem } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
 import deleteItemFromBasket from "@/utils/server/delete/deleteItemFromBasket";
 import { toast } from "react-hot-toast";

@@ -52,8 +52,9 @@ const FilterList: FC = ({ }) => {
       </PopoverTrigger>
       <PopoverContent className="py-5 bg-gray-200 border-1 border-gray-500 flex flex-col">
         <PopoverArrow className="fill-gray-200" />
-        {filterItems.map((item) => (
+        {filterItems.map((item, idx) => (
           <FilterListBtn
+          key={idx}
             onClick={() => {
               changeActiveFilter(item);
               close();

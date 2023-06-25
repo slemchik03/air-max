@@ -5,7 +5,7 @@ import { FC } from "react";
 import SearchInput from "../SearchInput/SearchInput";
 import ContentGoodList from "./ContentGoodList";
 import FilterBlock from "../FilterBlock/FilterBlock";
-import { FilterItem } from "@/utils/server/getFilters";
+import { FilterItem } from "@/utils/server/get/getFilters";
 
 interface Props {
   initialFilters: FilterItem[];
