@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { GoodItemCard } from "@/components/General/GoodItem/GoodItem";
 import { filterListAtom } from "@/components/HomePage/FilterList/FilterList";
 import { useAtom } from "jotai";

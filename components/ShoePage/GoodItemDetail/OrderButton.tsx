@@ -22,7 +22,6 @@ const OrderButton: FC<Props> = ({ itemId }) => {
       toast.dismiss(toastId);
 
       if (result.ok) {
-        router.refresh();
         return toast.success("Success!");
       }
       return toast.error("Smt went wrong!");
