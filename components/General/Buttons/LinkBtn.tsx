@@ -1,3 +1,4 @@
+import { cn } from "../../../lib/utils";
 import Link, { LinkProps } from "next/link";
 import { FC } from "react";
 
@@ -8,26 +9,24 @@ interface Props {
 }
 
 const LinkBtn: FC<Props & LinkProps> = ({ href, type, text, ...props }) => {
-  if (type === "orange") {
-    return (
-      <Link
-        {...props}
-        href={href}
-        className="relative group/item text-[#DE343D] text-[13px]  uppercase font-monument tracking-[0.86px] leading-[28px]"
-      >
-        {text}
-        <div className="absolute group-hover/item:w-full bottom-0 left-0 w-0 bg-[#DE343D] h-1 rounded-full duration-150 ease-in-out"></div>
-      </Link>
-    );
-  }
+  const baseLinkCn =
+    "relative group/item text-[13px] uppercase font-monument tracking-[0.86px] leading-[28px]";
+  const baseLineCn =
+    "absolute group-hover/item:w-full bottom-[-2px] left-0 w-0 h-1 rounded-full duration-150 ease-in-out";
+  const resultCn = {
+    black: {
+      linkCn: "text-black",
+      lineCn: "bg-black",
+    },
+    orange: {
+      lineCn: "bg-[#DE343D]",
+      linkCn: "text-[#DE343D]",
+    },
+  }[type];
   return (
-    <Link
-      {...props}
-      href={href}
-      className="relative group/item text-black text-[13px] text-left xl:text-center uppercase font-monument tracking-[0.86px] leading-[28px]"
-    >
+    <Link className={cn(baseLinkCn, resultCn.linkCn)} {...props} href={href}>
       {text}
-      <div className="absolute group-hover/item:w-full bottom-0 left-0 w-0 bg-black h-1 rounded-full duration-150 ease-in-out"></div>
+      <div className={cn(baseLineCn, resultCn.lineCn)}></div>
     </Link>
   );
 };

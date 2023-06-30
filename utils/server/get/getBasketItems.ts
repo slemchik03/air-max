@@ -1,6 +1,6 @@
 import { Basket, BasketItem, GoodItem } from "@prisma/client";
 
-export type BasketItemList = (BasketItem & {item: GoodItem})[]
+export type BasketItemList = (BasketItem & { item: GoodItem })[];
 
 const getBasketItems = async (userId: string): Promise<BasketItemList> => {
   try {
@@ -11,8 +11,10 @@ const getBasketItems = async (userId: string): Promise<BasketItemList> => {
       cache: "no-cache",
       method: "GET",
     });
-    const data = (await response.json()) as Basket & {basketItems: BasketItemList};
-    
+    const data = (await response.json()) as Basket & {
+      basketItems: BasketItemList;
+    };
+
     return data.basketItems || [];
   } catch (err) {
     console.log(err);

@@ -2,51 +2,55 @@
 
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FC, useCallback, useState } from "react";
 import SearchItemsList from "./SearchItemsList";
-import { useSetAtom } from "jotai";
-import { isHideHeaderAtom } from "../../Header/HeaderContent";
 import useGetSearchedItems from "@/utils/hooks/useGetSearchedItems";
+import debounce from "@/utils/debounce";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-const SearchItems = () => {
-  const setIsHideHeader = useSetAtom(isHideHeaderAtom);
+interface Props {
+  open: boolean;
+  closeCallback: () => void;
+}
+
+const SearchItems: FC<Props> = ({ open, closeCallback }) => {
   const [value, setValue] = useState("");
-  const { isPending, goodItems, changeQuery } = useGetSearchedItems(value);
+  const [query, setQuery] = useState(value);
+  const { isPending, goodItems } = useGetSearchedItems(query);
 
   const router = useRouter();
-  const pathname = usePathname();
-
+  const changeQuery = useCallback(
+    debounce((v: string) => setQuery(v), 500),
+    []
+  );
   const changeValue = (v: string) => {
     setValue(v);
     changeQuery(v);
   };
   const changeOpen = (v: boolean) => {
-    if (!v) router.back();
+    if (!v) closeCallback();
   };
-  const isOpen = pathname === "/search";
-  useEffect(() => {
-    if (isOpen) {
-      setIsHideHeader(true);
-    }
-    return () => setIsHideHeader(false);
-  }, [isOpen]);
+
   return (
-    <Dialog open={isOpen} onOpenChange={changeOpen}>
+    <Dialog open={open} onOpenChange={changeOpen}>
       <DialogContent className="z-[1000000] blur-effect py-[2rem]">
-        <DialogHeader>
-          <div className="blur-effect grid grid-cols-[30px,1fr] text-[15px] items-center text-[#969faf] h-10 px-3 rounded-full">
-            <MagnifyingGlassIcon className="h-[15px] w-[15px]" />
-            <input
-              value={value}
-              onChange={(e) => changeValue(e.currentTarget.value)}
-              className="text-[#23272F] bg-transparent w-full border-none outline-none"
-            />
-          </div>
-          <div className={`${isPending ? "opacity-30" : ""} transition-all`}>
-            <SearchItemsList goodList={goodItems} />
-          </div>
-        </DialogHeader>
+        <div className="blur-effect grid grid-cols-[30px,1fr] text-[15px] items-center text-[#969faf] h-10 px-3 rounded-full">
+          <MagnifyingGlassIcon className="h-[15px] w-[15px]" />
+          <input
+            value={value}
+            onChange={(e) => changeValue(e.currentTarget.value)}
+            className="text-[#23272F] bg-transparent w-full border-none outline-none"
+          />
+        </div>
+
+        <ScrollArea
+          className={`w-[400px] h-[500px] ${
+            isPending ? "opacity-30" : ""
+          } transition-all`}
+        >
+          <SearchItemsList goodList={goodItems || []} />
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

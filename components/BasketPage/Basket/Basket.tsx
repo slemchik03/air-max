@@ -35,6 +35,7 @@ const Basket: FC<Props> = ({ userId }) => {
         <DeleteItemFromBasket
           open={!!itemToDelete}
           item={itemToDelete}
+          itemsCount={itemToDelete.count}
           isLoading={deleteItemMutation.isLoading}
           confirmCallback={(count) => deleteItemMutation.mutate(count)}
           cancelCallback={() => setItemToDelete(null)}

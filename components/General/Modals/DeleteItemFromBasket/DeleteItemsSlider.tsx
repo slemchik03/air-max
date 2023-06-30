@@ -8,6 +8,7 @@ interface Props {
 }
 
 const DeleteItemsSlider: FC<Props> = ({ maxCount, deleteCount, onChange }) => {
+  
   return (
     <div className="flex pt-4 flex-col text-center gap-1 text-black justify-center items-center px-4">
       <Slider

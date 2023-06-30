@@ -1,28 +1,23 @@
-import { useCallback, useState, useTransition } from "react";
-import debounce from "../debounce";
-import { searchGoodItems } from "@/app/(actions)/actions";
 import { GoodItem } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
+import getFilteredGoodItems from "../server/get/getFilteredGoodItems";
 
-let prevValue = "";
 export default function useGetSearchedItems(searchQuery: string) {
-  const [goodItems, setGoodItems] = useState<GoodItem[]>([]);
+  const {data: goodItems, isFetching} = useQuery({
+    queryKey: ["searched-items", searchQuery],
+    queryFn: async () =>
+      (
+        await getFilteredGoodItems<GoodItem>({
+          limit: 6,
+          selectList: [],
+          search: searchQuery,
+        })
+      ).data,
+      keepPreviousData: true
+  });
 
-  const [isPending, startTransition] = useTransition();
-
-  const changeQuery = useCallback(
-    debounce((v: string) => {
-      startTransition(() => {
-        searchGoodItems(v, 6).then((res) => {
-          prevValue = v;
-          setGoodItems(res);
-        });
-      });
-    }, 500),
-    []
-  );
   return {
-    isPending: isPending || searchQuery !== prevValue,
+    isPending: isFetching,
     goodItems,
-    changeQuery,
   };
 }

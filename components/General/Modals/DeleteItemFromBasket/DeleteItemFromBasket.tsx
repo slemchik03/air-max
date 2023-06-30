@@ -13,6 +13,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface Props {
   item: BasketItem & { item: GoodItem };
+  itemsCount: number;
   open: boolean;
   isLoading?: boolean;
   confirmCallback: (deleteCount: number) => any;
@@ -22,19 +23,20 @@ interface Props {
 const DeleteItemFromBasket: FC<Props> = ({
   open,
   isLoading,
+  itemsCount,
   item: {
-    count,
     item: { title },
   },
   cancelCallback,
   confirmCallback,
 }) => {
   const [deleteCount, setDeleteCount] = useState(1);
-  const isSingle = count <= 1;
+  const isSingle = itemsCount <= 1;
 
+  
   return (
     <Dialog open={open} onOpenChange={(v) => !v && cancelCallback()}>
-      <DialogContent>
+      <DialogContent className="blur-effect">
         <DialogHeader className="gap-5">
           <DialogTitle className="text-center">{title}</DialogTitle>
 
@@ -44,7 +46,7 @@ const DeleteItemFromBasket: FC<Props> = ({
                 <DeleteItemsSlider
                   onChange={(v) => setDeleteCount(v)}
                   deleteCount={deleteCount}
-                  maxCount={count}
+                  maxCount={itemsCount}
                 />
               )}
               <Button

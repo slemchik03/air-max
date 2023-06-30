@@ -5,14 +5,7 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
   text: string;
 }
 
-const Button: FC<Props> = ({
-  text,
-  type,
-  children,
-  className,
-
-  ...props
-}) => {
+const Button: FC<Props> = ({ text, type, children, className, ...props }) => {
   switch (type) {
     case "black":
       return (
