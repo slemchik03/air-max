@@ -12,7 +12,7 @@ const SearchItemsList: FC<Props> = memo(({ goodList }) => {
       {goodList?.length ? (
         goodList.map((item) => <SearchedItem key={item.id} goodItem={item} />)
       ) : (
-        <p className="text-2xl text-black">
+        <p aria-label="search-not-found" className="text-2xl text-black">
           There are nothing was found.
           <br /> Type another search
         </p>

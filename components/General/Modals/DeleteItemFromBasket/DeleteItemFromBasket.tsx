@@ -5,17 +5,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { BasketItem, GoodItem } from "@prisma/client";
 import { FC, useState } from "react";
 import DeleteItemsSlider from "./DeleteItemsSlider";
 import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface Props {
-  item: BasketItem & { item: GoodItem };
   itemsCount: number;
+  itemTitle: string;
   open: boolean;
   isLoading?: boolean;
+  portalContainerElement?: HTMLElement;
   confirmCallback: (deleteCount: number) => any;
   cancelCallback: () => void;
 }
@@ -24,21 +24,23 @@ const DeleteItemFromBasket: FC<Props> = ({
   open,
   isLoading,
   itemsCount,
-  item: {
-    item: { title },
-  },
+  itemTitle,
   cancelCallback,
   confirmCallback,
+  portalContainerElement,
 }) => {
   const [deleteCount, setDeleteCount] = useState(1);
   const isSingle = itemsCount <= 1;
 
-  
   return (
     <Dialog open={open} onOpenChange={(v) => !v && cancelCallback()}>
-      <DialogContent className="blur-effect">
+      <DialogContent
+        role="dialog-content"
+        container={portalContainerElement}
+        className="blur-effect"
+      >
         <DialogHeader className="gap-5">
-          <DialogTitle className="text-center">{title}</DialogTitle>
+          <DialogTitle className="text-center">{itemTitle}</DialogTitle>
 
           <DialogDescription asChild>
             <div className="grid gap-5">
@@ -50,6 +52,7 @@ const DeleteItemFromBasket: FC<Props> = ({
                 />
               )}
               <Button
+                role="delete-btn"
                 disabled={!deleteCount || isLoading}
                 onClick={() => confirmCallback(deleteCount)}
                 variant="outline"

@@ -1,8 +1,7 @@
 "use client";
 
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/navigation";
 import { FC, useCallback, useState } from "react";
 import SearchItemsList from "./SearchItemsList";
 import useGetSearchedItems from "@/utils/hooks/useGetSearchedItems";
@@ -12,14 +11,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface Props {
   open: boolean;
   closeCallback: () => void;
+  // For storybook testing
+  portalContainerElement?: HTMLElement;
+  defaultSearch?: string;
 }
 
-const SearchItems: FC<Props> = ({ open, closeCallback }) => {
-  const [value, setValue] = useState("");
+const SearchItems: FC<Props> = ({
+  open,
+  closeCallback,
+  portalContainerElement,
+  defaultSearch
+}) => {
+  const [value, setValue] = useState(defaultSearch || "");
   const [query, setQuery] = useState(value);
   const { isPending, goodItems } = useGetSearchedItems(query);
 
-  const router = useRouter();
   const changeQuery = useCallback(
     debounce((v: string) => setQuery(v), 500),
     []
@@ -34,10 +40,15 @@ const SearchItems: FC<Props> = ({ open, closeCallback }) => {
 
   return (
     <Dialog open={open} onOpenChange={changeOpen}>
-      <DialogContent className="z-[1000000] blur-effect py-[2rem]">
+      <DialogContent
+        container={portalContainerElement}
+        role="dialog-content"
+        className="z-[1000000] blur-effect py-[2rem]"
+      >
         <div className="blur-effect grid grid-cols-[30px,1fr] text-[15px] items-center text-[#969faf] h-10 px-3 rounded-full">
           <MagnifyingGlassIcon className="h-[15px] w-[15px]" />
           <input
+            aria-label="search-input"
             value={value}
             onChange={(e) => changeValue(e.currentTarget.value)}
             className="text-[#23272F] bg-transparent w-full border-none outline-none"
